@@ -191,7 +191,6 @@ public class Competition extends JFrame {
 //            }
 //        });
         jbuttonNewCompetitionConfirm.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 listFirstOption = new String[] {"NR", "NAZWISKO", "IMIE", jtextfieldCompetitionTitle.getText()};
                 jpanelInsidee.removeAll();
