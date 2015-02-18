@@ -180,9 +180,10 @@ public class Window extends JFrame {
 //      TOOLBAR
 
         JToolBar jtoolbarStartList = new JToolBar();
+        jtoolbarStartList.setLayout(new GridLayout());
         jtoolbarStartList.setFloatable(false);
 
-        JLabel label1 = new JLabel("    ");
+        JLabel label1 = new JLabel("  ");
         jtoolbarStartList.add(label1);
 
         ImageIcon icon1 = new ImageIcon("images/blank.png");
@@ -197,7 +198,7 @@ public class Window extends JFrame {
         JButton z3 = new JButton("EDYTUJ", icon3);
         jtoolbarStartList.add(z3);
 
-        JLabel label2 = new JLabel("    ");
+        JLabel label2 = new JLabel("  ");
         jtoolbarStartList.add(label2);
 
         ImageIcon icon4 = new ImageIcon("images/blank.png");
@@ -212,7 +213,7 @@ public class Window extends JFrame {
         JButton zaw3 = new JButton("EDYTUJ", icon6);
         jtoolbarStartList.add(zaw3);
 
-        JLabel label3 = new JLabel("    ");
+        JLabel label3 = new JLabel("  ");
         jtoolbarStartList.add(label3);
 
         ImageIcon icon7 = new ImageIcon("images/blank.png");
