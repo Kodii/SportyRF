@@ -335,7 +335,7 @@ public class Window extends JFrame {
         return quitAction;
     }
 
-    public static void main(String[] args) {
+    public static void windowStart() {
 
         EventQueue.invokeLater(new Runnable() {
             @Override

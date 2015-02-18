@@ -1,5 +1,5 @@
 package gui.database;
 
 
-public class Update {
+public class Insert {
 }
