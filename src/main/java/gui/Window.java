@@ -109,7 +109,7 @@ public class Window extends JFrame {
 		// Menu Competitor - new
 
 		// Menu Competitor - delete
-		JMenuItem menuCompetitorDelete = new JMenuItem("USUĹ�");
+		JMenuItem menuCompetitorDelete = new JMenuItem("USUŃ");
 		menuCompetitorDelete.setMnemonic(KeyEvent.VK_D);
 		menuCompetitorDelete.setToolTipText("Wczytuje z pliku (alt+d)");
 		menuCompetitor.add(menuCompetitorDelete);
@@ -131,7 +131,7 @@ public class Window extends JFrame {
 		menuBar.add(menuRFID);
 
 		// Menu RFID - connect
-		JMenuItem menuRFIDConnect = new JMenuItem("POĹ�Ä„CZ",
+		JMenuItem menuRFIDConnect = new JMenuItem("POŁĄCZ",
 				menuRFIDConnectIcon);
 		menuRFIDConnect.setMnemonic(KeyEvent.VK_Q);
 		menuRFIDConnect.setToolTipText("POLACZ (alt+q)");
@@ -139,7 +139,7 @@ public class Window extends JFrame {
 		// Menu RFID - connect
 
 		// Menu RFID - disconnect
-		JMenuItem menuRFIDDisconnect = new JMenuItem("ROZĹ�Ä„CZ");
+		JMenuItem menuRFIDDisconnect = new JMenuItem("ROZŁĄCZ");
 		menuRFIDDisconnect.setMnemonic(KeyEvent.VK_W);
 		menuRFIDDisconnect.setToolTipText("POLACZ (alt+w)");
 		menuRFID.add(menuRFIDDisconnect);
@@ -165,7 +165,7 @@ public class Window extends JFrame {
 		// Menu Quit //
 		JMenu menuQuit = new JMenu("QUIT");
 		menuQuit.setMnemonic(KeyEvent.VK_Q);
-		menuQuit.setToolTipText("WyjĹ›cie z aplikacji (alt+Q)");
+		menuQuit.setToolTipText("Wyjście z aplikacji (alt+Q)");
 
 		JMenuItem eMenuQuit = new JMenuItem("QUIT", quitIcon);
 		eMenuQuit.addActionListener(getQuitActionObject());
@@ -233,7 +233,7 @@ public class Window extends JFrame {
 		jtoolbarStartList.add(zaw1);
 
 		ImageIcon icon5 = new ImageIcon("images/blank.png");
-		JButton zaw2 = new JButton("USUĹ�", icon5);
+		JButton zaw2 = new JButton("USUŃ", icon5);
 		jtoolbarStartList.add(zaw2);
 
 		ImageIcon icon6 = new ImageIcon("images/blank.png");
@@ -244,11 +244,11 @@ public class Window extends JFrame {
 		jtoolbarStartList.add(label3);
 
 		ImageIcon icon7 = new ImageIcon("images/blank.png");
-		JButton r1 = new JButton("POĹ�Ä„CZ", icon7);
+		JButton r1 = new JButton("POŁĄCZ", icon7);
 		jtoolbarStartList.add(r1);
 
 		ImageIcon icon8 = new ImageIcon("images/blank.png");
-		JButton r2 = new JButton("ROZĹ�Ä„CZ", icon8);
+		JButton r2 = new JButton("ROZŁĄCZ", icon8);
 		jtoolbarStartList.add(r2);
 
 		ImageIcon icon9 = new ImageIcon("images/blank.png");
@@ -340,7 +340,7 @@ public class Window extends JFrame {
 	private void exitOnClose() { // Functionality of button X on window pane
 
 		if (JOptionPane.showConfirmDialog(this,
-				"JesteĹ› pewny, ĹĽe chcesz wyjĹ›Ä‡?", "ZatwierdĹş",
+				"Jesteś pewny, że chcesz wyjść?", "Zatwierdź",
 				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 			System.exit(0);
 		}
