@@ -1,11 +1,27 @@
 package gui;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableColumn;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
 
 /**
  * Created by Kordian on 2014-12-31.
@@ -32,6 +48,8 @@ public class Competition extends JFrame {
 			jcheckboxCompetitionHeight, jcheckboxCompetitionTeam;
 	private String[] columnNames, listFirstOption;
 	private JButton jbuttonNewCompetitionConfirm;
+
+	private ArrayList<String> optionList = new ArrayList<String>();
 
 	public Competition() {
 		dispose();
@@ -192,18 +210,49 @@ public class Competition extends JFrame {
 		// });
 		jbuttonNewCompetitionConfirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				listFirstOption = new String[] { "NR", "NAZWISKO", "IMIE",
-						jtextfieldCompetitionTitle.getText() };
+
+				makeTable();
 				jpanelInsidee.removeAll();
 				jpanelInsidee.removeAll();
 				JTable list2 = createList2();
 				JScrollPane listScroller = new JScrollPane(list2);
 				jpanelInsidee.add(listScroller, BorderLayout.WEST);
 				jpanelInsidee.add(rightPane, BorderLayout.EAST);
+				dispose();
 
 			}
 		});
 
+	}
+
+	private void makeTable() {
+		optionList.add("NR");
+		optionList.add("NAZWISKO");
+		optionList.add("IMIÊ");
+		if (jcheckboxCompetitionBirth.isSelected() == true) {
+			optionList.add("DATA UR");
+		}
+		if (jcheckboxCompetitionCity.isSelected() == true) {
+			optionList.add("MIASTO");
+		}
+		if (jcheckboxCompetitionState.isSelected() == true) {
+			optionList.add("POWIAT");
+		}
+		if (jcheckboxCompetitionCategory.isSelected() == true) {
+			optionList.add("KATEGORIA");
+		}
+		if (jcheckboxCompetitionGender.isSelected() == true) {
+			optionList.add("P£EÆ");
+		}
+		if (jcheckboxCompetitionWeight.isSelected() == true) {
+			optionList.add("WAGA");
+		}
+		if (jcheckboxCompetitionHeight.isSelected() == true) {
+			optionList.add("WZROST");
+		}
+		if (jcheckboxCompetitionTeam.isSelected() == true) {
+			optionList.add("DRU¯YNA");
+		}
 	}
 
 	public JTable createList1() {
@@ -238,15 +287,18 @@ public class Competition extends JFrame {
 
 	public JTable createList2() {
 
-		columnNames = new String[listFirstOption.length]; // {listFirstOption[0],
-															// listFirstOption[1]};
-		for (int i = 0; i < listFirstOption.length; i++) {
-			columnNames[i] = listFirstOption[i];
+		columnNames = new String[optionList.size()]; // {listFirstOption[0],
+														// listFirstOption[1]};
+
+		for (int i = 0; i < optionList.size(); i++) {
+			columnNames[i] = optionList.get(i);
 			System.out.println(columnNames[i]);
 		}
+
 		// columnNames = new String[]{"NR", "NAZWISKO", "IMIE", "DATA",
 		// "MIASTO", "KATEGORIA"};
-		Object[][] data = { { "123", "123", "123", "123" } };
+		Object[][] data = { { null, null, null, null, null, null, null, null,
+				null, null, null, null, null, null, null, null, null, null, } };
 
 		jtableStartList2 = new JTable(data, columnNames);
 		jtableStartList2.setFillsViewportHeight(true);
