@@ -26,6 +26,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JToolBar;
+import javax.swing.table.TableColumn;
 
 /**
  * Created by Kordian on 2014-12-28.
@@ -36,27 +37,25 @@ public class Window extends JFrame {
 	private JTabbedPane tabbedPane;
 	private JPanel jpanelStartList, jpanelRace, jpanelInside;
 	private JScrollPane listScroller, rightPane;
-	private JTable list;
-	private JFrame addNewCompetition;
+	private JTable list, jtableStartList ;
 	private Competition competition;
+	private static Window window;
 
-	public JPanel getJpanelStartList() {
-		return jpanelStartList;
-	}
 
 	public Window() {
 		setTitle("Tutaj nazwa programu");
-		setSize(800, 600);
+		setSize(1024, 600);
 		setResizable(true);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-
+		
 		initExitOnClose();
 		initUI();
+			
 	}
 
 	private void initUI() {
-
+		
 		JMenuBar menuBar = new JMenuBar();
 		ImageIcon quitIcon = new ImageIcon("images/blank.png");
 		ImageIcon menuCompetitionNewIcon = new ImageIcon("images/blank.png");
@@ -74,10 +73,15 @@ public class Window extends JFrame {
 				menuCompetitionNewIcon);
 		menuCompetitionNew.setMnemonic(KeyEvent.VK_X);
 		menuCompetitionNew.setToolTipText("Dodaj nowy (alt+x)");
-		menuCompetitionNew.addActionListener(new MenuCompetitionNewListener());
+		menuCompetitionNew.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				competition = new Competition(window);
+			}
+		});
 		menuCompetitions.add(menuCompetitionNew);
 		// Menu Competition - new
-		// menuCompetitions.addActionListener(new MenuCompetitionNewListener());
+
 		// Menu Competition - load
 		JMenuItem menuCompetitionLoad = new JMenuItem("WCZYTAJ");
 		menuCompetitionLoad.setMnemonic(KeyEvent.VK_C);
@@ -131,8 +135,7 @@ public class Window extends JFrame {
 		menuBar.add(menuRFID);
 
 		// Menu RFID - connect
-		JMenuItem menuRFIDConnect = new JMenuItem("POŁĄCZ",
-				menuRFIDConnectIcon);
+		JMenuItem menuRFIDConnect = new JMenuItem("POŁĄCZ", menuRFIDConnectIcon);
 		menuRFIDConnect.setMnemonic(KeyEvent.VK_Q);
 		menuRFIDConnect.setToolTipText("POLACZ (alt+q)");
 		menuRFID.add(menuRFIDConnect);
@@ -261,8 +264,8 @@ public class Window extends JFrame {
 
 		// TOOLBAR
 
-		competition = new Competition();
-		list = competition.createList1();
+		
+		list = createList(); // drawing a table (blank)
 
 		jpanelInside = new JPanel();
 		jpanelInside
@@ -285,22 +288,34 @@ public class Window extends JFrame {
 		// ADD CONTENTS
 
 	}
+	private JTable createList() {
 
-	public class MenuCompetitionNewListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			// TODO tutaj musze potestowac te smiecie
-			competition = new Competition(addNewCompetition);
-			competition.initUI(jpanelInside, rightPane);
-			// System.out.println(competition.listFirstOption[0]);
-			// competition.jboxFirstOption.action;
-			// if(competition.listFirstOption[0] == "A") {
-			// jpanelInside.removeAll();
-			// JTable list2 = competition.createList2();
-			// listScroller = new JScrollPane(list2);
-			// jpanelInside.add(listScroller, BorderLayout.WEST);
-			// jpanelInside.add(rightPane, BorderLayout.EAST);
-			// }
+		String[] columnNames = {};
+		Object[][] data = {};
+
+		jtableStartList = new JTable(data, columnNames);
+		jtableStartList.setFillsViewportHeight(true);
+		//setRowColor(jtableStartList);
+
+		// SETING COLUMNS WIDHT
+
+		TableColumn column = null;
+
+		for (int i = 0; i < data.length; i++) {
+			column = jtableStartList.getColumnModel().getColumn(i);
+			// column.setResizable(false);
+			if (i == 0) {
+				column.setPreferredWidth(10);
+			} else if ((i > 1) && (i < 5)) {
+				column.setPreferredWidth(50);
+			} else {
+				column.setPreferredWidth(100);
+			}
 		}
+
+		// SETING COLUMNS WIDHT
+
+		return jtableStartList;
 	}
 
 	public void createPage2() {
@@ -359,9 +374,45 @@ public class Window extends JFrame {
 
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				Window window = new Window();
+				window = new Window();
 				window.setVisible(true);
 			}
 		});
 	}
+
+	public JPanel getJpanelInside() {
+		return jpanelInside;
+	}
+
+	public void setJpanelInside(JPanel jpanelInside) {
+		this.jpanelInside = jpanelInside;
+	}
+
+	public JScrollPane getRightPane() {
+		return rightPane;
+	}
+
+	public void setRightPane(JScrollPane rightPane) {
+		this.rightPane = rightPane;
+	}
+	public JPanel getJpanelStartList() {
+		return jpanelStartList;
+	}
+
+	public JScrollPane getListScroller() {
+		return listScroller;
+	}
+
+	public void setListScroller(JScrollPane listScroller) {
+		this.listScroller = listScroller;
+	}
+
+	public JTable getJtableStartList() {
+		return jtableStartList;
+	}
+
+	public void setJtableStartList(JTable jtableStartList) {
+		this.jtableStartList = jtableStartList;
+	}
+
 }

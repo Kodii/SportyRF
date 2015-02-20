@@ -23,25 +23,19 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 
-/**
- * Created by Kordian on 2014-12-31.
- */
-
 public class Competition extends JFrame {
 
-	private JTable jtableStartList, jtableStartList2;
+	private JTable jtableStartList;
 	private JPanel jpanelMainPanel, jpanelCompetitionTitle,
 			jpanelCompetitionDate, jpanelCompetitionPlace,
 			jpanelCompetitionLaps, jpanelCompetitionType,
 			jpanelCompetitionButtons, jpanelCompetitionCheckBoxes;
-	private JComboBox jboxFirstOption, jboxCompetitionType;
-	private JLabel jlabelFirstOption, jlabelCompetitionTitle,
-			jlabelCompetitionDate, jlabelCompetitionPlace,
-			jlabelCompetitionLaps, jlabelCompetitionType,
-			jlabelCompetitionCheckBoxes;
+	private JComboBox jboxCompetitionType;
+	private JLabel jlabelCompetitionTitle, jlabelCompetitionDate,
+			jlabelCompetitionPlace, jlabelCompetitionLaps,
+			jlabelCompetitionType, jlabelCompetitionCheckBoxes;
 	private JTextField jtextfieldCompetitionTitle, jtextfieldCompetitionDate,
-			jtextfieldCompetitionPlace, jtextfieldCompetitionLaps,
-			jtextfieldCompetitionType;
+			jtextfieldCompetitionPlace, jtextfieldCompetitionLaps;
 	private JCheckBox jcheckboxCompetitionBirth, jcheckboxCompetitionCity,
 			jcheckboxCompetitionState, jcheckboxCompetitionCategory,
 			jcheckboxCompetitionGender, jcheckboxCompetitionWeight,
@@ -49,13 +43,14 @@ public class Competition extends JFrame {
 	private String[] columnNames, listFirstOption;
 	private JButton jbuttonNewCompetitionConfirm;
 
+	private JScrollPane listScroller;
+	private Window window;
+
 	private ArrayList<String> optionList = new ArrayList<String>();
 
-	public Competition() {
-		dispose();
-	}
+	public Competition(Window windowOld) {
 
-	public Competition(JFrame window) {
+		window = windowOld;
 
 		setTitle("NOWE ZAWODY");
 		setSize(650, 250);
@@ -64,10 +59,10 @@ public class Competition extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setVisible(true);
 
-		// initUI();
+		initUI();
 	}
 
-	public void initUI(final JPanel jpanelInsidee, final JScrollPane rightPane) {
+	private void initUI() {
 
 		jpanelMainPanel = new JPanel();
 		jpanelMainPanel.setLayout(new BoxLayout(jpanelMainPanel,
@@ -177,48 +172,28 @@ public class Competition extends JFrame {
 
 		jpanelMainPanel.add(jbuttonNewCompetitionConfirm);
 
-		// jpanelCompetitionButtons.add(jbuttonNewCompetitionConfirm);
-
-		// test1.add(jlabelCompetitionDate);
-		// test1.add(jtextfieldCompetitionDate);
-		// jpanelMainPanel.add(test1);
-
-		// jpanelMainPanel.add(jbuttonNewCompetitionConfirm,
-		// BorderLayout.PAGE_END);
-
-		// jboxFirstOption.addActionListener(new ActionListener() {
-		// public void actionPerformed(ActionEvent e) {
-		// if(jboxFirstOption.getSelectedItem() == "A") {
-		// listFirstOption = new String[] {"A"};
-		// jpanelInsidee.removeAll();
-		// jpanelInsidee.removeAll();
-		// JTable list2 = createList2();
-		// JScrollPane listScroller = new JScrollPane(list2);
-		// jpanelInsidee.add(listScroller, BorderLayout.WEST);
-		// jpanelInsidee.add(rightPane, BorderLayout.EAST);
-		// }
-		// if(jboxFirstOption.getSelectedItem() == "B") {
-		// listFirstOption = new String[] {"B"};
-		// jpanelInsidee.removeAll();
-		// jpanelInsidee.removeAll();
-		// JTable list2 = createList2();
-		// JScrollPane listScroller = new JScrollPane(list2);
-		// jpanelInsidee.add(listScroller, BorderLayout.WEST);
-		// jpanelInsidee.add(rightPane, BorderLayout.EAST);
-		// }
-		// }
-		// });
 		jbuttonNewCompetitionConfirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
+				CompetitionClass competition = new CompetitionClass();
+				competition.setTitle(jtextfieldCompetitionTitle.getText());
+				competition.setDate(jtextfieldCompetitionDate.getText());
+				competition.setPlace(jtextfieldCompetitionPlace.getText());
+				competition.setLaps(jtextfieldCompetitionLaps.getText());
+				competition.setStartType(jboxCompetitionType.getSelectedItem().toString());
+
 				makeTable();
-				jpanelInsidee.removeAll();
-				jpanelInsidee.removeAll();
-				JTable list2 = createList2();
-				JScrollPane listScroller = new JScrollPane(list2);
-				jpanelInsidee.add(listScroller, BorderLayout.WEST);
-				jpanelInsidee.add(rightPane, BorderLayout.EAST);
+
+				JTable list = createList();
+
+				listScroller = window.getListScroller();
+				listScroller.setViewportView(list);
+
+				window.getJpanelInside().add(listScroller, BorderLayout.WEST);
+				window.getJpanelInside().add(window.getRightPane(),
+						BorderLayout.EAST);
 				dispose();
+				competition.printText();
 
 			}
 		});
@@ -255,11 +230,19 @@ public class Competition extends JFrame {
 		}
 	}
 
-	public JTable createList1() {
+	private JTable createList() {
 
-		String[] columnNames = {};
-		Object[][] data = {};
+		columnNames = new String[optionList.size()];
 
+		for (int i = 0; i < optionList.size(); i++) {
+			columnNames[i] = optionList.get(i);
+//			System.out.println(columnNames[i]);
+		}
+
+		Object[][] data = { { null, null, null, null, null, null, null, null,
+				null, null, null, null, null, null, null, null, null, null, } };
+
+		jtableStartList = window.getJtableStartList();
 		jtableStartList = new JTable(data, columnNames);
 		jtableStartList.setFillsViewportHeight(true);
 		setRowColor(jtableStartList);
@@ -267,63 +250,19 @@ public class Competition extends JFrame {
 		// SETING COLUMNS WIDHT
 
 		TableColumn column = null;
-
 		for (int i = 0; i < data.length; i++) {
 			column = jtableStartList.getColumnModel().getColumn(i);
 			// column.setResizable(false);
 			if (i == 0) {
-				column.setPreferredWidth(10);
-			} else if ((i > 1) && (i < 5)) {
-				column.setPreferredWidth(50);
+				column.setPreferredWidth(30);
 			} else {
-				column.setPreferredWidth(100);
+				column.setPreferredWidth(50);
 			}
 		}
 
 		// SETING COLUMNS WIDHT
 
 		return jtableStartList;
-	}
-
-	public JTable createList2() {
-
-		columnNames = new String[optionList.size()]; // {listFirstOption[0],
-														// listFirstOption[1]};
-
-		for (int i = 0; i < optionList.size(); i++) {
-			columnNames[i] = optionList.get(i);
-			System.out.println(columnNames[i]);
-		}
-
-		// columnNames = new String[]{"NR", "NAZWISKO", "IMIE", "DATA",
-		// "MIASTO", "KATEGORIA"};
-		Object[][] data = { { null, null, null, null, null, null, null, null,
-				null, null, null, null, null, null, null, null, null, null, } };
-
-		jtableStartList2 = new JTable(data, columnNames);
-		jtableStartList2.setFillsViewportHeight(true);
-		setRowColor(jtableStartList2);
-
-		// SETING COLUMNS WIDHT
-
-		// TableColumn column = null;
-		// for (int i = 0; i < data.length; i++) {
-		// column = jtableStartList2.getColumnModel().getColumn(i);
-		// //column.setResizable(false);
-		// if (i == 0) {
-		// column.setPreferredWidth(10);
-		// }
-		// else if ( (i>1) && (i<5) ) {
-		// column.setPreferredWidth(50);
-		// }
-		// else {
-		// column.setPreferredWidth(100);
-		// }
-		// }
-
-		// SETING COLUMNS WIDHT
-
-		return jtableStartList2;
 	}
 
 	public void setRowColor(JTable table) {
@@ -339,5 +278,4 @@ public class Competition extends JFrame {
 			}
 		});
 	}
-
 }
