@@ -4,44 +4,48 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.*;
+
 
 public class Select extends DatabaseConnection {
 
     public static int getCompetitionId() {
-        int row_id = -1;
+        int rowId = -1;
         ResultSet rs = null;
 
-        Connection connection = getConnection();
+        System.out.println("TRYING TO GET LAST COMPETITION ID");
 
         try {
-            PreparedStatement get_last_id_stm = connection.prepareStatement("SELECT MAX(id) from Contest");
-            rs = get_last_id_stm.executeQuery();
+            Connection connection = getConnection();
+            PreparedStatement getLastId = connection.prepareStatement("SELECT MAX(id) from Contest");
+            rs = getLastId.executeQuery();
             rs.next();
-            row_id = rs.getInt(1);
+            rowId = rs.getInt(1);
+            connection.close();
 
-            if (row_id == 0){
+            if (rowId == 0){
                 return 1;
             }else{
-                return row_id;
+                return rowId + 1;
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return row_id;
+        return rowId;
     }
-
 
 
     public static ResultSet getUsers() {
         System.out.println("TRYING TO GET USERS");
         ResultSet rs = null;
-        Connection connection = getConnection();
 
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM Participant");
+            Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement("SELECT id, name, surname, birt, city, district, team, weight, hieght, category FROM Participant");
             rs = statement.executeQuery();
+            connection.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -51,4 +55,45 @@ public class Select extends DatabaseConnection {
         return rs;
     }
 
+    public static HashMap getCompetition(int competitionId){
+        System.out.println("TRYING TO GET COMPETITION BY ID");
+
+        ResultSet rs = null;
+        HashMap <String, String> competition = new HashMap<String, String>();
+
+        try {
+            Connection connection = getConnection();
+            PreparedStatement getCompetitionStm = connection.prepareStatement("SELECT id, name, place, date, laps, start_type FROM Contest WHERE id=?");
+            getCompetitionStm.setInt(1, competitionId);
+            rs = getCompetitionStm.executeQuery();
+            rs.next();
+
+            competition.put("compId", Integer.toString(rs.getInt(1)));
+            competition.put("compName", rs.getString(2));
+            competition.put("compPlace", rs.getString(3));
+            competition.put("compDate", rs.getString(4));
+            competition.put("compLaps", rs.getString(5));
+            competition.put("compStartType", Integer.toString(rs.getInt(6)));
+
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return competition;
+
+    }
+
+    public static void hashTableTest(HashMap table){
+        Set set = table.entrySet();
+        Iterator i = set.iterator();
+
+        while(i.hasNext()) {
+            Map.Entry me = (Map.Entry)i.next();
+            System.out.print(me.getKey() + ": ");
+            System.out.println(me.getValue());
+        }
+
+    }
 }
