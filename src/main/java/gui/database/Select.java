@@ -18,7 +18,12 @@ public class Select extends DatabaseConnection {
             rs = get_last_id_stm.executeQuery();
             rs.next();
             row_id = rs.getInt(1);
-            return row_id;
+
+            if (row_id == 0){
+                return 1;
+            }else{
+                return row_id;
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
