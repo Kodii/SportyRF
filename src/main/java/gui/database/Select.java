@@ -43,7 +43,9 @@ public class Select extends DatabaseConnection {
 
         try {
             Connection connection = getConnection();
-            PreparedStatement statement = connection.prepareStatement("SELECT id, name, surname, birt, city, district, team, weight, hieght, category FROM Participant");
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT id, name, surname, birt, city, district, team, weight, hieght, category " +
+                            "FROM Participant");
             rs = statement.executeQuery();
             connection.close();
 
@@ -63,7 +65,11 @@ public class Select extends DatabaseConnection {
 
         try {
             Connection connection = getConnection();
-            PreparedStatement getCompetitionStm = connection.prepareStatement("SELECT id, name, place, date, laps, start_type FROM Contest WHERE id=?");
+            PreparedStatement getCompetitionStm = connection.prepareStatement(
+                    "SELECT id, name, place, date, laps, start_type " +
+                            "FROM Contest " +
+                            "WHERE id=?");
+
             getCompetitionStm.setInt(1, competitionId);
             rs = getCompetitionStm.executeQuery();
             rs.next();

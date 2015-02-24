@@ -16,7 +16,9 @@ public class Insert extends DatabaseConnection {
         try {
             Connection connection = getConnection();
             int competition_id = Select.getCompetitionId();
-            PreparedStatement insertEvent = connection.prepareStatement("INSERT INTO Contest(id, name, place, date, laps, start_type) VALUES (?, ?, ?, ?, ?, ?)");
+            PreparedStatement insertEvent = connection.prepareStatement(
+                    "INSERT INTO Contest(id, name, place, date, laps, start_type) " +
+                            "VALUES (?, ?, ?, ?, ?, ?)");
 
             insertEvent.setInt(1, competition_id);
             insertEvent.setString(2, name);
