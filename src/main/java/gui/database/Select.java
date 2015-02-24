@@ -74,6 +74,7 @@ public class Select extends DatabaseConnection {
             competition.put("compDate", rs.getString(4));
             competition.put("compLaps", rs.getString(5));
             competition.put("compStartType", Integer.toString(rs.getInt(6)));
+            System.out.println("DONE");
 
             connection.close();
 
