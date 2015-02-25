@@ -210,6 +210,55 @@ public class Select extends DatabaseConnection {
 
     }
 
+    public static Map startTypes() {
+        System.out.println("TYRYING TO GET ALL START TYPES");
+        Map<Integer, String> startTypes = new HashMap<Integer, String>();
+        ResultSet rs = null;
+
+        try {
+            Connection connection = getConnection();
+            PreparedStatement getAllStartTypes = connection.prepareStatement(
+                    "SELECT id, name From Start_type");
+            rs = getAllStartTypes.executeQuery();
+
+
+            while (rs.next()) {
+                startTypes.put(rs.getInt(1), rs.getString(2));
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return startTypes;
+    }
+
+    public static Map teams() {
+        System.out.println("TYRYING TO GET ALL TEAMS");
+        Map<Integer, String> teams = new HashMap<Integer, String>();
+        ResultSet rs = null;
+
+        try {
+            Connection connection = getConnection();
+            PreparedStatement getAllStartTypes = connection.prepareStatement(
+                    "SELECT id, name From teams");
+            rs = getAllStartTypes.executeQuery();
+
+
+            while (rs.next()) {
+                teams.put(rs.getInt(1), rs.getString(2));
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return teams;
+    }
+
+
     public static void hashTableTest(Map table){
         Set set = table.entrySet();
         Iterator i = set.iterator();
