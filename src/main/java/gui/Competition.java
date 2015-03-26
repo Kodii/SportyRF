@@ -1,6 +1,5 @@
 package gui;
 
-import gui.database.Insert;
 import gui.database.Select;
 
 import java.awt.BorderLayout;
@@ -25,6 +24,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 public class Competition extends JFrame {
 
@@ -211,24 +211,17 @@ public class Competition extends JFrame {
 				System.out.println("compID :"
 						+ Select.getCompetition(Select.getCompetitionId() - 1));
 
-				makeTable();
+				setColumns(); // Setting collumns
+				drawTable(); // drawing table into JFrame
 
-				JTable list = createList();
-
-				listScroller = window.getListScroller();
-				listScroller.setViewportView(list);
-
-				window.getJpanelInside().add(listScroller, BorderLayout.WEST);
-				window.getJpanelInside().add(window.getRightPane(),
-						BorderLayout.EAST);
-				dispose();
+				dispose(); // disposing add window
 
 			}
 		});
 
 	}
 
-	private void makeTable() {
+	private void setColumns() {
 		optionList.add("NR");
 		optionList.add("NAZWISKO");
 		optionList.add("IMIÊ");
@@ -258,7 +251,7 @@ public class Competition extends JFrame {
 		}
 	}
 
-	private JTable createList() {
+	private void drawTable() {
 
 		for (int i = 0; i < optionList.size(); i++) {
 			model.addColumn(optionList.get(i));
@@ -269,17 +262,23 @@ public class Competition extends JFrame {
 
 		// SETING COLUMNS WIDHT
 
-		/*
-		 * TableColumn column = null; for (int i = 0; i < data.length; i++) {
-		 * column = jtableStartList.getColumnModel().getColumn(i); //
-		 * column.setResizable(false); if (i == 0) {
-		 * column.setPreferredWidth(30); } else { column.setPreferredWidth(50);
-		 * } }
-		 */
+		TableColumn column = null;
+		for (int i = 0; i < model.getColumnCount(); i++) {
+			column = jtableStartList.getColumnModel().getColumn(i);
+			// column.setResizable(false);
+			if (i == 0) { // NR
+				column.setPreferredWidth(70);
+			} else if (i == 1) { // NAZWISKO
+				column.setPreferredWidth(270);
+			} else if (i == 2) { // IMIE
+				column.setPreferredWidth(170);
+			} else {
+				column.setPreferredWidth(170);
+			}
+		}
 
 		// SETING COLUMNS WIDHT
 
-		return jtableStartList;
 	}
 
 	public void setRowColor(JTable table) {

@@ -37,7 +37,7 @@ public class Window extends JFrame {
 	private JTabbedPane tabbedPane;
 	private JPanel jpanelStartList, jpanelRace, jpanelInside;
 	private JScrollPane listScroller, rightPane;
-	private JTable list, jtableStartList ;
+	private JTable jtableStartList ;
 	private Competition competition;
 	private CompetitorNew competitor;
 	private static Window window;
@@ -272,14 +272,14 @@ public class Window extends JFrame {
 		// TOOLBAR
 
 		
-		list = createList(); // drawing a table (blank)
+		createList(); // drawing a table (blank)
 
 		jpanelInside = new JPanel();
 		jpanelInside
 				.setLayout(new BoxLayout(jpanelInside, BoxLayout.LINE_AXIS));
 		jpanelInside.setPreferredSize(new Dimension(600, 400));
 
-		listScroller = new JScrollPane(list);
+		listScroller = new JScrollPane(jtableStartList);
 		listScroller.setPreferredSize(new Dimension(500, 60));
 		jpanelInside.add(listScroller, BorderLayout.WEST);
 
@@ -295,14 +295,12 @@ public class Window extends JFrame {
 		// ADD CONTENTS
 
 	}
-	private JTable createList() {
+	private void createList() {
 
 		DefaultTableModel model = new DefaultTableModel();
 		jtableStartList = new JTable(model);
 		jtableStartList.setFillsViewportHeight(true);
 //		setRowColor(jtableStartList);
-
-		return jtableStartList;
 	}
 
 	public void createPage2() {
