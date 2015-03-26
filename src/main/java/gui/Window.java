@@ -26,7 +26,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JToolBar;
-import javax.swing.table.TableColumn;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * Created by Kordian on 2014-12-28.
@@ -297,30 +297,10 @@ public class Window extends JFrame {
 	}
 	private JTable createList() {
 
-		String[] columnNames = {};
-		Object[][] data = {};
-
-		jtableStartList = new JTable(data, columnNames);
+		DefaultTableModel model = new DefaultTableModel();
+		jtableStartList = new JTable(model);
 		jtableStartList.setFillsViewportHeight(true);
-		//setRowColor(jtableStartList);
-
-		// SETING COLUMNS WIDHT
-
-		TableColumn column = null;
-
-		for (int i = 0; i < data.length; i++) {
-			column = jtableStartList.getColumnModel().getColumn(i);
-			// column.setResizable(false);
-			if (i == 0) {
-				column.setPreferredWidth(10);
-			} else if ((i > 1) && (i < 5)) {
-				column.setPreferredWidth(50);
-			} else {
-				column.setPreferredWidth(100);
-			}
-		}
-
-		// SETING COLUMNS WIDHT
+//		setRowColor(jtableStartList);
 
 		return jtableStartList;
 	}

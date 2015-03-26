@@ -24,7 +24,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableColumn;
+import javax.swing.table.DefaultTableModel;
 
 public class Competition extends JFrame {
 
@@ -33,6 +33,8 @@ public class Competition extends JFrame {
 	private int startType;
 
 	private JTable jtableStartList;
+	private DefaultTableModel model;
+
 	private JPanel jpanelMainPanel, jpanelCompetitionTitle,
 			jpanelCompetitionDate, jpanelCompetitionPlace,
 			jpanelCompetitionLaps, jpanelCompetitionType,
@@ -60,6 +62,14 @@ public class Competition extends JFrame {
 	public Competition(Window window) {
 
 		this.window = window;
+
+		jtableStartList = window.getJtableStartList();
+		model = (DefaultTableModel) jtableStartList.getModel();
+
+		// clearing colums in table model
+		for (int i = 0; i < model.getColumnCount(); i++) {
+			model.setColumnIdentifiers(new Object[] {});
+		}
 
 		setTitle("NOWE ZAWODY");
 		setSize(650, 250);
@@ -187,7 +197,7 @@ public class Competition extends JFrame {
 				else
 					startType = 2;
 
-//				Insert.insertCompetition(title, place, date, laps, startType);
+				Insert.insertCompetition(title, place, date, laps, startType);
 
 				// System.out.println(Select.getCompetition(Select.getCompetitionId()));
 				// competition.put("compId", Integer.toString(rs.getInt(1)));
@@ -250,32 +260,22 @@ public class Competition extends JFrame {
 
 	private JTable createList() {
 
-		columnNames = new String[optionList.size()];
-
 		for (int i = 0; i < optionList.size(); i++) {
-			columnNames[i] = optionList.get(i);
+			model.addColumn(optionList.get(i));
 		}
 
-		Object[][] data = { /*{ null, null, null, null, null, null, null, null,
-				null, null, null, null, null, null, null, null, null, null, }*/ };
-
-		jtableStartList = window.getJtableStartList();
-		jtableStartList = new JTable(data,columnNames);
 		jtableStartList.setFillsViewportHeight(true);
 		setRowColor(jtableStartList);
 
 		// SETING COLUMNS WIDHT
 
-		TableColumn column = null;
-		for (int i = 0; i < data.length; i++) {
-			column = jtableStartList.getColumnModel().getColumn(i);
-			// column.setResizable(false);
-			if (i == 0) {
-				column.setPreferredWidth(30);
-			} else {
-				column.setPreferredWidth(50);
-			}
-		}
+		/*
+		 * TableColumn column = null; for (int i = 0; i < data.length; i++) {
+		 * column = jtableStartList.getColumnModel().getColumn(i); //
+		 * column.setResizable(false); if (i == 0) {
+		 * column.setPreferredWidth(30); } else { column.setPreferredWidth(50);
+		 * } }
+		 */
 
 		// SETING COLUMNS WIDHT
 
