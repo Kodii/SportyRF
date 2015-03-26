@@ -1,5 +1,8 @@
 package gui;
 
+import gui.database.Insert;
+import gui.database.Select;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -25,6 +28,10 @@ import javax.swing.table.TableColumn;
 
 public class Competition extends JFrame {
 
+	private int competitionID;
+	private String title, date, place, laps;
+	private int startType;
+
 	private JTable jtableStartList;
 	private JPanel jpanelMainPanel, jpanelCompetitionTitle,
 			jpanelCompetitionDate, jpanelCompetitionPlace,
@@ -40,17 +47,19 @@ public class Competition extends JFrame {
 			jcheckboxCompetitionState, jcheckboxCompetitionCategory,
 			jcheckboxCompetitionGender, jcheckboxCompetitionWeight,
 			jcheckboxCompetitionHeight, jcheckboxCompetitionTeam;
-	private String[] columnNames, listFirstOption;
+	private String[] columnNames;
 	private JButton jbuttonNewCompetitionConfirm;
 
 	private JScrollPane listScroller;
 	private Window window;
 
+	private Select s1;
+
 	private ArrayList<String> optionList = new ArrayList<String>();
 
-	public Competition(Window windowOld) {
+	public Competition(Window window) {
 
-		window = windowOld;
+		this.window = window;
 
 		setTitle("NOWE ZAWODY");
 		setSize(650, 250);
@@ -107,7 +116,7 @@ public class Competition extends JFrame {
 		jlabelCompetitionType = new JLabel("Rodzaj startu");
 		jlabelCompetitionType.setHorizontalAlignment(SwingConstants.CENTER);
 		jboxCompetitionType = new JComboBox();
-		jboxCompetitionType.addItem("Wspólny");
+		jboxCompetitionType.addItem("Wspolny");
 		jboxCompetitionType.addItem("Indywidualny");
 
 		jlabelCompetitionCheckBoxes = new JLabel("Kolumny tabeli");
@@ -125,12 +134,6 @@ public class Competition extends JFrame {
 		jbuttonNewCompetitionConfirm = new JButton("OK");
 		jbuttonNewCompetitionConfirm
 				.setHorizontalAlignment(SwingConstants.CENTER);
-
-		// final String firstOptionItems[] = new String[] {"A"};
-		//
-		// jlabelFirstOption = new JLabel("Pierwsze Pole: ");
-		// jlabelFirstOption.setSize(10,10);
-		// jboxFirstOption = new JComboBox(firstOptionItems);
 
 		Container contentPane = new Container();
 		contentPane = getContentPane();
@@ -175,12 +178,28 @@ public class Competition extends JFrame {
 		jbuttonNewCompetitionConfirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				CompetitionClass competition = new CompetitionClass();
-				competition.setTitle(jtextfieldCompetitionTitle.getText());
-				competition.setDate(jtextfieldCompetitionDate.getText());
-				competition.setPlace(jtextfieldCompetitionPlace.getText());
-				competition.setLaps(jtextfieldCompetitionLaps.getText());
-				competition.setStartType(jboxCompetitionType.getSelectedItem().toString());
+				title = jtextfieldCompetitionTitle.getText();
+				date = jtextfieldCompetitionDate.getText();
+				place = jtextfieldCompetitionPlace.getText();
+				laps = jtextfieldCompetitionLaps.getText();
+				if (jboxCompetitionType.getSelectedItem().toString() == "Wspolny")
+					startType = 1;
+				else
+					startType = 2;
+
+//				Insert.insertCompetition(title, place, date, laps, startType);
+
+				// System.out.println(Select.getCompetition(Select.getCompetitionId()));
+				// competition.put("compId", Integer.toString(rs.getInt(1)));
+				// competition.put("compName", rs.getString(2));
+				// competition.put("compPlace", rs.getString(3));
+				// competition.put("compDate", rs.getString(4));
+				// competition.put("compLaps", rs.getString(5));
+				// competition.put("compStartType",
+				// Integer.toString(rs.getInt(6)));
+				System.out.println("dodano nastepujaco:");
+				System.out.println("compID :"
+						+ Select.getCompetition(Select.getCompetitionId() - 1));
 
 				makeTable();
 
@@ -193,7 +212,6 @@ public class Competition extends JFrame {
 				window.getJpanelInside().add(window.getRightPane(),
 						BorderLayout.EAST);
 				dispose();
-				competition.printText();
 
 			}
 		});
@@ -236,14 +254,13 @@ public class Competition extends JFrame {
 
 		for (int i = 0; i < optionList.size(); i++) {
 			columnNames[i] = optionList.get(i);
-//			System.out.println(columnNames[i]);
 		}
 
-		Object[][] data = { { null, null, null, null, null, null, null, null,
-				null, null, null, null, null, null, null, null, null, null, } };
+		Object[][] data = { /*{ null, null, null, null, null, null, null, null,
+				null, null, null, null, null, null, null, null, null, null, }*/ };
 
 		jtableStartList = window.getJtableStartList();
-		jtableStartList = new JTable(data, columnNames);
+		jtableStartList = new JTable(data,columnNames);
 		jtableStartList.setFillsViewportHeight(true);
 		setRowColor(jtableStartList);
 

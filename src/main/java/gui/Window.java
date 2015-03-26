@@ -39,6 +39,7 @@ public class Window extends JFrame {
 	private JScrollPane listScroller, rightPane;
 	private JTable list, jtableStartList ;
 	private Competition competition;
+	private CompetitorNew competitor;
 	private static Window window;
 
 
@@ -105,11 +106,17 @@ public class Window extends JFrame {
 		menuBar.add(menuCompetitor);
 
 		// Menu Competitor - new
-		JMenuItem menuCompetititorNew = new JMenuItem("NOWY",
+		JMenuItem menuCompetitorNew = new JMenuItem("NOWY",
 				menuCompetitorNewIcon);
-		menuCompetititorNew.setMnemonic(KeyEvent.VK_S);
-		menuCompetititorNew.setToolTipText("Dodaj nowego zawodnika (alt+s)");
-		menuCompetitor.add(menuCompetititorNew);
+		menuCompetitorNew.setMnemonic(KeyEvent.VK_S);
+		menuCompetitorNew.setToolTipText("Dodaj nowego zawodnika (alt+s)");
+		menuCompetitorNew.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				competitor = new CompetitorNew(window);
+			}
+		});
+		menuCompetitor.add(menuCompetitorNew);
 		// Menu Competitor - new
 
 		// Menu Competitor - delete
