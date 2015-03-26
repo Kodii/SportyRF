@@ -1,5 +1,6 @@
 package gui;
 
+import gui.database.Insert;
 import gui.database.Select;
 
 import java.awt.BorderLayout;
