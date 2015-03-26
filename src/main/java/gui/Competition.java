@@ -26,6 +26,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 public class Competition extends JFrame {
 
@@ -35,6 +36,7 @@ public class Competition extends JFrame {
 
 	private JTable jtableStartList;
 	private DefaultTableModel model;
+	private TableColumnModel tableColumnModel;
 
 	private JPanel jpanelMainPanel, jpanelCompetitionTitle,
 			jpanelCompetitionDate, jpanelCompetitionPlace,
@@ -66,10 +68,14 @@ public class Competition extends JFrame {
 
 		jtableStartList = window.getJtableStartList();
 		model = (DefaultTableModel) jtableStartList.getModel();
+		tableColumnModel = jtableStartList.getColumnModel();
+		
+		
 
 		// clearing colums in table model
 		for (int i = 0; i < model.getColumnCount(); i++) {
 			model.setColumnIdentifiers(new Object[] {});
+			model.setRowCount(0);
 		}
 
 		setTitle("NOWE ZAWODY");
@@ -253,28 +259,46 @@ public class Competition extends JFrame {
 	}
 
 	private void drawTable() {
-
 		for (int i = 0; i < optionList.size(); i++) {
 			model.addColumn(optionList.get(i));
 		}
-
+		
+		
 		jtableStartList.setFillsViewportHeight(true);
 		setRowColor(jtableStartList);
 
 		// SETING COLUMNS WIDHT
 
 		TableColumn column = null;
-		for (int i = 0; i < model.getColumnCount(); i++) {
-			column = jtableStartList.getColumnModel().getColumn(i);
+		String optionListValue;
+		for (int i = 0; i < optionList.size(); i++) {
+			column = tableColumnModel.getColumn(i);
+			optionListValue = optionList.get(i);
 			// column.setResizable(false);
-			if (i == 0) { // NR
+			if (optionListValue == "NR") {
 				column.setPreferredWidth(70);
-			} else if (i == 1) { // NAZWISKO
+			} else if (optionListValue == "NAZWISKO") {
 				column.setPreferredWidth(270);
-			} else if (i == 2) { // IMIE
+			} else if (optionListValue == "IMIÊ") {
 				column.setPreferredWidth(170);
+			} else if (optionListValue == "DATA UR") {
+				column.setPreferredWidth(220);
+			} else if (optionListValue == "MIASTO") {
+				column.setPreferredWidth(220);
+			} else if (optionListValue == "POWIAT") {
+				column.setPreferredWidth(220);
+			} else if (optionListValue == "KATEGORIA") {
+				column.setPreferredWidth(300);
+			} else if (optionListValue == "P£EÆ") {
+				column.setPreferredWidth(100);
+			} else if (optionListValue == "WAGA") {
+				column.setPreferredWidth(100);
+			} else if (optionListValue == "WZROST") {
+				column.setPreferredWidth(100);
+			}else if (optionListValue == "DRU¯YNA") {
+				column.setPreferredWidth(220);
 			} else {
-				column.setPreferredWidth(170);
+				column.setPreferredWidth(1700);
 			}
 		}
 

@@ -3,6 +3,7 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,6 +41,9 @@ public class Window extends JFrame {
 	private JTable jtableStartList ;
 	private Competition competition;
 	private CompetitorNew competitor;
+	
+	private Font tableColumnsFont, tableFont;
+	
 	private static Window window;
 
 
@@ -49,6 +53,7 @@ public class Window extends JFrame {
 		setResizable(true);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+	
 		
 		initExitOnClose();
 		initUI();
@@ -299,6 +304,14 @@ public class Window extends JFrame {
 
 		DefaultTableModel model = new DefaultTableModel();
 		jtableStartList = new JTable(model);
+		
+		tableFont = new Font("Arial", Font.PLAIN, 10); //change values to change font
+		jtableStartList.setFont(tableFont);
+		
+		
+		tableColumnsFont = new Font("Arial", Font.ITALIC, 11);	//change values to change font
+		jtableStartList.getTableHeader().setFont(tableColumnsFont);
+		
 		jtableStartList.setFillsViewportHeight(true);
 //		setRowColor(jtableStartList);
 	}
