@@ -17,7 +17,6 @@ import javax.swing.table.TableColumnModel;
 
 public class Competition {
 
-	private int competitionID;
 	private String title, date, place, laps;
 	private int startType;
 
@@ -25,9 +24,6 @@ public class Competition {
 	private DefaultTableModel model;
 	private TableColumnModel tableColumnModel;
 
-	private String[] columnNames;
-
-	private JScrollPane listScroller;
 	private Window mainWindow;
 	private NewCompetitionWindow window;
 
@@ -118,8 +114,8 @@ public class Competition {
 			model.addColumn(optionList.get(i));
 		}
 
-//		jtableStartList.setFillsViewportHeight(true);
-//		setRowColor(jtableStartList);
+		// jtableStartList.setFillsViewportHeight(true);
+		// setRowColor(jtableStartList);
 
 		// SETING COLUMNS WIDHT
 
@@ -159,6 +155,7 @@ public class Competition {
 		// SETING COLUMNS WIDHT
 
 	}
+
 	// do usuniecia jak dziala w klasie window
 	public void setRowColor(JTable table) {
 		table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
