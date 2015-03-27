@@ -1,5 +1,6 @@
-package gui;
+package gui.competition;
 
+import gui.Window;
 import gui.database.Insert;
 import gui.database.Select;
 

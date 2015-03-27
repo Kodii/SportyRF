@@ -1,5 +1,8 @@
 package gui;
 
+import gui.competition.Competition;
+import gui.competitor.NewCompetitor;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -118,6 +121,7 @@ public class Window extends JFrame {
 		menuCompetitorNew.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
+				NewCompetitor newCompetitor = new NewCompetitor(window);
 			}
 		});
 		menuCompetitor.add(menuCompetitorNew);
