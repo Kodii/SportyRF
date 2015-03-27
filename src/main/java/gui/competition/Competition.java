@@ -66,14 +66,6 @@ public class Competition {
 
 		Insert.insertCompetition(title, place, date, laps, startType);
 
-		// System.out.println(Select.getCompetition(Select.getCompetitionId()));
-		// competition.put("compId", Integer.toString(rs.getInt(1)));
-		// competition.put("compName", rs.getString(2));
-		// competition.put("compPlace", rs.getString(3));
-		// competition.put("compDate", rs.getString(4));
-		// competition.put("compLaps", rs.getString(5));
-		// competition.put("compStartType",
-		// Integer.toString(rs.getInt(6)));
 		System.out.println("Inserted:"
 				+ Select.getCompetition(Select.getCompetitionId() - 1));
 
