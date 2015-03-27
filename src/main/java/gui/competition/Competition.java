@@ -34,7 +34,7 @@ public class Competition {
 		this.mainWindow = mainWindow;
 		this.window = window;
 
-		jtableStartList = mainWindow.getJtableStartList();
+		jtableStartList = mainWindow.getStartListTable();
 		model = (DefaultTableModel) jtableStartList.getModel();
 		tableColumnModel = jtableStartList.getColumnModel();
 

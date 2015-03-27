@@ -43,12 +43,11 @@ import javax.swing.table.DefaultTableModel;
 public class Window extends JFrame {
 
 	private JTabbedPane tabbedPane;
-	private JPanel jpanelStartList, jpanelRace, jpanelInside;
+	private JPanel startListPanel, racePanel, insidePanel;
 	private JScrollPane listScroller, rightPane;
-	private JTable jtableStartList;
+	private JTable startListTable;
 	private Competition competition;
 	private NewCompetitionWindow competitionWindow;
-	// private CompetitorNew competitor;
 
 	private Font tableColumnsFont, tableFont;
 
@@ -209,8 +208,8 @@ public class Window extends JFrame {
 		createPage2();
 
 		tabbedPane = new JTabbedPane();
-		tabbedPane.addTab("LISTA STARTOWA", jpanelStartList);
-		tabbedPane.addTab("WYSCIG", jpanelRace);
+		tabbedPane.addTab("LISTA STARTOWA", startListPanel);
+		tabbedPane.addTab("WYSCIG", racePanel);
 		topPanel.add(tabbedPane, BorderLayout.CENTER);
 
 		// TABS //
@@ -219,8 +218,8 @@ public class Window extends JFrame {
 
 	public void createPage1() {
 
-		jpanelStartList = new JPanel();
-		jpanelStartList.setLayout(new BorderLayout());
+		startListPanel = new JPanel();
+		startListPanel.setLayout(new BorderLayout());
 		// IF WE WANT TO MOVE TOOLBAR WHEN RESIZING PASTE LINE BELOW
 		// jpanelStartList.setLayout(new BoxLayout(jpanelStartList,
 		// BoxLayout.PAGE_AXIS));
@@ -284,23 +283,23 @@ public class Window extends JFrame {
 
 		createList(); // drawing a table (blank)
 
-		jpanelInside = new JPanel();
-		jpanelInside
-				.setLayout(new BoxLayout(jpanelInside, BoxLayout.LINE_AXIS));
-		jpanelInside.setPreferredSize(new Dimension(600, 400));
+		insidePanel = new JPanel();
+		insidePanel
+				.setLayout(new BoxLayout(insidePanel, BoxLayout.LINE_AXIS));
+		insidePanel.setPreferredSize(new Dimension(600, 400));
 
-		listScroller = new JScrollPane(jtableStartList);
+		listScroller = new JScrollPane(startListTable);
 		listScroller.setPreferredSize(new Dimension(500, 60));
-		jpanelInside.add(listScroller, BorderLayout.WEST);
+		insidePanel.add(listScroller, BorderLayout.WEST);
 
 		rightPane = new JScrollPane();
 		rightPane.setPreferredSize(new Dimension(140, 80));
-		jpanelInside.add(rightPane, BorderLayout.EAST);
+		insidePanel.add(rightPane, BorderLayout.EAST);
 
 		// ADD CONTENTS
 
-		jpanelStartList.add(jtoolbarStartList, BorderLayout.NORTH);
-		jpanelStartList.add(jpanelInside, BorderLayout.CENTER);
+		startListPanel.add(jtoolbarStartList, BorderLayout.NORTH);
+		startListPanel.add(insidePanel, BorderLayout.CENTER);
 
 		// ADD CONTENTS
 
@@ -309,25 +308,25 @@ public class Window extends JFrame {
 	private void createList() {
 
 		DefaultTableModel model = new DefaultTableModel();
-		jtableStartList = new JTable(model);
+		startListTable = new JTable(model);
 
 		tableFont = new Font("Arial", Font.PLAIN, 10); // change values to
 														// change font
-		jtableStartList.setFont(tableFont);
+		startListTable.setFont(tableFont);
 
 		tableColumnsFont = new Font("Arial", Font.ITALIC, 11); // change values
 																// to change
 																// font
-		jtableStartList.getTableHeader().setFont(tableColumnsFont);
+		startListTable.getTableHeader().setFont(tableColumnsFont);
 
-		jtableStartList.setFillsViewportHeight(true);
-		setRowColor(jtableStartList);
+		startListTable.setFillsViewportHeight(true);
+		setRowColor(startListTable);
 	}
 
 	public void createPage2() {
 
-		jpanelRace = new JPanel();
-		jpanelRace.setLayout(new BorderLayout());
+		racePanel = new JPanel();
+		racePanel.setLayout(new BorderLayout());
 
 		// TOOLBAR
 
@@ -341,7 +340,7 @@ public class Window extends JFrame {
 		JButton startButton2 = new JButton("stop", icon2);
 		jtoolbarRace.add(startButton2);
 
-		jpanelRace.add(jtoolbarRace, BorderLayout.NORTH);
+		racePanel.add(jtoolbarRace, BorderLayout.NORTH);
 
 		// TOOLBAR
 
@@ -400,40 +399,15 @@ public class Window extends JFrame {
 		});
 	}
 
-	public JPanel getJpanelInside() {
-		return jpanelInside;
+	public JTable getStartListTable() {
+		return startListTable;
 	}
 
-	public void setJpanelInside(JPanel jpanelInside) {
-		this.jpanelInside = jpanelInside;
+	public void setStartListTable(JTable startListTable) {
+		this.startListTable = startListTable;
 	}
 
-	public JScrollPane getRightPane() {
-		return rightPane;
-	}
 
-	public void setRightPane(JScrollPane rightPane) {
-		this.rightPane = rightPane;
-	}
 
-	public JPanel getJpanelStartList() {
-		return jpanelStartList;
-	}
-
-	public JScrollPane getListScroller() {
-		return listScroller;
-	}
-
-	public void setListScroller(JScrollPane listScroller) {
-		this.listScroller = listScroller;
-	}
-
-	public JTable getJtableStartList() {
-		return jtableStartList;
-	}
-
-	public void setJtableStartList(JTable jtableStartList) {
-		this.jtableStartList = jtableStartList;
-	}
 
 }
