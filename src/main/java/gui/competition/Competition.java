@@ -44,10 +44,16 @@ public class Competition {
 			model.setRowCount(0);
 		}
 
-		initUI();
+		databaseInsert();
+
+		setColumns(); // Setting collumns
+
+		drawTable(); // drawing table into JFrame
+
+		window.dispose(); // disposing add window
 	}
 
-	private void initUI() {
+	private void databaseInsert() {
 
 		title = window.getCompetitionTitleTextFIeld().getText();
 		date = window.getCompetitionDateTextField().getText();
@@ -68,14 +74,8 @@ public class Competition {
 		// competition.put("compLaps", rs.getString(5));
 		// competition.put("compStartType",
 		// Integer.toString(rs.getInt(6)));
-		System.out.println("dodano nastepujaco:");
-		System.out.println("compID :"
+		System.out.println("Inserted:"
 				+ Select.getCompetition(Select.getCompetitionId() - 1));
-
-		setColumns(); // Setting collumns
-		drawTable(); // drawing table into JFrame
-
-		window.dispose(); // disposing add window
 
 	}
 
@@ -114,11 +114,7 @@ public class Competition {
 			model.addColumn(optionList.get(i));
 		}
 
-		// jtableStartList.setFillsViewportHeight(true);
-		// setRowColor(jtableStartList);
-
 		// SETING COLUMNS WIDHT
-
 		TableColumn column = null;
 		String optionListValue;
 		for (int i = 0; i < optionList.size(); i++) {
@@ -151,23 +147,6 @@ public class Competition {
 				column.setPreferredWidth(1700);
 			}
 		}
-
-		// SETING COLUMNS WIDHT
-
 	}
 
-	// do usuniecia jak dziala w klasie window
-	public void setRowColor(JTable table) {
-		table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-			@Override
-			public Component getTableCellRendererComponent(JTable table,
-					Object value, boolean isSelected, boolean hasFocus,
-					int row, int column) {
-				final Component c = super.getTableCellRendererComponent(table,
-						value, isSelected, hasFocus, row, column);
-				c.setBackground(row % 2 == 0 ? Color.LIGHT_GRAY : Color.WHITE);
-				return this;
-			}
-		});
-	}
 }
