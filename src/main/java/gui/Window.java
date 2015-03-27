@@ -85,7 +85,7 @@ public class Window extends JFrame {
         // Menu Competitor - new
 
         // Menu Competitor - delete
-        JMenuItem menuCompetitorDelete = new JMenuItem("USUŃ");
+        JMenuItem menuCompetitorDelete = new JMenuItem("USUĹ�");
         menuCompetitorDelete.setMnemonic(KeyEvent.VK_D);
         menuCompetitorDelete.setToolTipText("Wczytuje z pliku (alt+d)");
         menuCompetitor.add(menuCompetitorDelete);
@@ -107,14 +107,14 @@ public class Window extends JFrame {
         menuBar.add(menuRFID);
 
         // Menu RFID - connect
-        JMenuItem menuRFIDConnect = new JMenuItem("POŁĄCZ", menuRFIDConnectIcon);
+        JMenuItem menuRFIDConnect = new JMenuItem("POĹ�Ä„CZ", menuRFIDConnectIcon);
         menuRFIDConnect.setMnemonic(KeyEvent.VK_Q);
         menuRFIDConnect.setToolTipText("POLACZ (alt+q)");
         menuRFID.add(menuRFIDConnect);
         // Menu RFID - connect
 
         // Menu RFID - disconnect
-        JMenuItem menuRFIDDisconnect = new JMenuItem("ROZŁĄCZ");
+        JMenuItem menuRFIDDisconnect = new JMenuItem("ROZĹ�Ä„CZ");
         menuRFIDDisconnect.setMnemonic(KeyEvent.VK_W);
         menuRFIDDisconnect.setToolTipText("POLACZ (alt+w)");
         menuRFID.add(menuRFIDDisconnect);
@@ -139,7 +139,7 @@ public class Window extends JFrame {
         // Menu Quit //
         JMenu menuQuit = new JMenu("QUIT");
         menuQuit.setMnemonic(KeyEvent.VK_Q);
-        menuQuit.setToolTipText("Wyjście z aplikacji (alt+Q)");
+        menuQuit.setToolTipText("WyjĹ›cie z aplikacji (alt+Q)");
 
         JMenuItem eMenuQuit = new JMenuItem("QUIT", quitIcon);
         eMenuQuit.addActionListener(getQuitActionObject());
@@ -206,7 +206,7 @@ public class Window extends JFrame {
         jtoolbarStartList.add(zaw1);
 
         ImageIcon icon5 = new ImageIcon("images/blank.png");
-        JButton zaw2 = new JButton("USUŃ", icon5);
+        JButton zaw2 = new JButton("USUĹ�", icon5);
         jtoolbarStartList.add(zaw2);
 
         ImageIcon icon6 = new ImageIcon("images/blank.png");
@@ -217,11 +217,11 @@ public class Window extends JFrame {
         jtoolbarStartList.add(label3);
 
         ImageIcon icon7 = new ImageIcon("images/blank.png");
-        JButton r1 = new JButton("POŁĄCZ", icon7);
+        JButton r1 = new JButton("POĹ�Ä„CZ", icon7);
         jtoolbarStartList.add(r1);
 
         ImageIcon icon8 = new ImageIcon("images/blank.png");
-        JButton r2 = new JButton("ROZŁĄCZ", icon8);
+        JButton r2 = new JButton("ROZĹ�Ä„CZ", icon8);
         jtoolbarStartList.add(r2);
 
         ImageIcon icon9 = new ImageIcon("images/blank.png");
@@ -262,7 +262,6 @@ public class Window extends JFrame {
     }
 
     public class MenuCompetitionNewListener implements ActionListener {
-        @Override
         public void actionPerformed(ActionEvent e) {
 // TODO tutaj musze potestowac te smiecie
             competition = new Competition(addNewCompetition);
@@ -319,8 +318,8 @@ public class Window extends JFrame {
 
         if (JOptionPane.showConfirmDialog(
                 this,
-                "Jesteś pewny, że chcesz wyjść?",
-                "Zatwierdź",
+                "JesteĹ› pewny, ĹĽe chcesz wyjĹ›Ä‡?",
+                "ZatwierdĹş",
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
@@ -328,7 +327,6 @@ public class Window extends JFrame {
 
     private Action getQuitActionObject() { // Functionality menuItem quit
         Action quitAction = new AbstractAction("QUIT") {
-            @Override
             public void actionPerformed(ActionEvent event) {
                 exitOnClose();
             }
@@ -339,7 +337,6 @@ public class Window extends JFrame {
     public static void windowStart() {
 
         EventQueue.invokeLater(new Runnable() {
-            @Override
             public void run() {
                 Window window = new Window();
                 window.setVisible(true);
