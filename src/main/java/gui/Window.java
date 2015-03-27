@@ -1,9 +1,12 @@
 package gui;
 
 import gui.competition.Competition;
+import gui.competition.NewCompetitionWindow;
 import gui.competitor.NewCompetitor;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -30,6 +33,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JToolBar;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -41,14 +45,14 @@ public class Window extends JFrame {
 	private JTabbedPane tabbedPane;
 	private JPanel jpanelStartList, jpanelRace, jpanelInside;
 	private JScrollPane listScroller, rightPane;
-	private JTable jtableStartList ;
+	private JTable jtableStartList;
 	private Competition competition;
-//	private CompetitorNew competitor;
-	
-	private Font tableColumnsFont, tableFont;
-	
-	private static Window window;
+	private NewCompetitionWindow competitionWindow;
+	// private CompetitorNew competitor;
 
+	private Font tableColumnsFont, tableFont;
+
+	private static Window window;
 
 	public Window() {
 		setTitle("Tutaj nazwa programu");
@@ -56,15 +60,14 @@ public class Window extends JFrame {
 		setResizable(true);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-	
-		
+
 		initExitOnClose();
 		initUI();
-			
+
 	}
 
 	private void initUI() {
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		ImageIcon quitIcon = new ImageIcon("images/blank.png");
 		ImageIcon menuCompetitionNewIcon = new ImageIcon("images/blank.png");
@@ -85,7 +88,7 @@ public class Window extends JFrame {
 		menuCompetitionNew.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				competition = new Competition(window);
+				competitionWindow = new NewCompetitionWindow(window);
 			}
 		});
 		menuCompetitions.add(menuCompetitionNew);
@@ -119,7 +122,7 @@ public class Window extends JFrame {
 		menuCompetitorNew.setMnemonic(KeyEvent.VK_S);
 		menuCompetitorNew.setToolTipText("Dodaj nowego zawodnika (alt+s)");
 		menuCompetitorNew.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				NewCompetitor newCompetitor = new NewCompetitor(window);
 			}
@@ -279,7 +282,6 @@ public class Window extends JFrame {
 
 		// TOOLBAR
 
-		
 		createList(); // drawing a table (blank)
 
 		jpanelInside = new JPanel();
@@ -303,20 +305,23 @@ public class Window extends JFrame {
 		// ADD CONTENTS
 
 	}
+
 	private void createList() {
 
 		DefaultTableModel model = new DefaultTableModel();
 		jtableStartList = new JTable(model);
-		
-		tableFont = new Font("Arial", Font.PLAIN, 10); //change values to change font
+
+		tableFont = new Font("Arial", Font.PLAIN, 10); // change values to
+														// change font
 		jtableStartList.setFont(tableFont);
-		
-		
-		tableColumnsFont = new Font("Arial", Font.ITALIC, 11);	//change values to change font
+
+		tableColumnsFont = new Font("Arial", Font.ITALIC, 11); // change values
+																// to change
+																// font
 		jtableStartList.getTableHeader().setFont(tableColumnsFont);
-		
+
 		jtableStartList.setFillsViewportHeight(true);
-//		setRowColor(jtableStartList);
+		setRowColor(jtableStartList);
 	}
 
 	public void createPage2() {
@@ -370,6 +375,20 @@ public class Window extends JFrame {
 		};
 		return quitAction;
 	}
+	
+	private void setRowColor(JTable table) {
+		table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+			@Override
+			public Component getTableCellRendererComponent(JTable table,
+					Object value, boolean isSelected, boolean hasFocus,
+					int row, int column) {
+				final Component c = super.getTableCellRendererComponent(table,
+						value, isSelected, hasFocus, row, column);
+				c.setBackground(row % 2 == 0 ? Color.LIGHT_GRAY : Color.WHITE);
+				return this;
+			}
+		});
+	}
 
 	public static void windowStart() {
 
@@ -396,6 +415,7 @@ public class Window extends JFrame {
 	public void setRightPane(JScrollPane rightPane) {
 		this.rightPane = rightPane;
 	}
+
 	public JPanel getJpanelStartList() {
 		return jpanelStartList;
 	}
