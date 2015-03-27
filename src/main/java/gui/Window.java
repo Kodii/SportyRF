@@ -40,7 +40,7 @@ public class Window extends JFrame {
 	private JScrollPane listScroller, rightPane;
 	private JTable jtableStartList ;
 	private Competition competition;
-	private CompetitorNew competitor;
+//	private CompetitorNew competitor;
 	
 	private Font tableColumnsFont, tableFont;
 	
@@ -118,7 +118,6 @@ public class Window extends JFrame {
 		menuCompetitorNew.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				competitor = new CompetitorNew(window);
 			}
 		});
 		menuCompetitor.add(menuCompetitorNew);
