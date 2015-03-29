@@ -36,7 +36,7 @@ public class NewCompetitionWindow extends NewWindow {
 			districtCheckBox, genderCheckBox, weightCheckBox, heightCheckBox,
 			teamCheckBox;;
 
-	private Competition competition;
+	private NewCompetition competition;
 
 	public NewCompetitionWindow(Window window) {
 		super(window);
@@ -152,7 +152,7 @@ public class NewCompetitionWindow extends NewWindow {
 		confirmButton.setHorizontalAlignment(SwingConstants.CENTER);
 		confirmButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				competition = new Competition(window, NewCompetitionWindow.this);
+				competition = new NewCompetition(window, NewCompetitionWindow.this);
 			}
 		});
 

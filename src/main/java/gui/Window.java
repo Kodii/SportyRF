@@ -1,6 +1,6 @@
 package gui;
 
-import gui.competition.Competition;
+import gui.competition.NewCompetition;
 import gui.competition.NewCompetitionWindow;
 import gui.competitor.NewCompetitorWindow;
 
@@ -47,7 +47,7 @@ public class Window extends JFrame {
 	private JScrollPane listScroller, rightPane;
 	private JTable startListTable;
 	
-	private Competition competition;
+	private NewCompetition competition;
 	
 	private NewCompetitionWindow competitionWindow;
 	private NewCompetitorWindow newCompetitorWindow;

@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
-public class Competition {
+public class NewCompetition {
 
 	private String title, date, place, laps;
 	private int startType;
@@ -29,7 +29,7 @@ public class Competition {
 
 	private ArrayList<String> optionList = new ArrayList<String>();
 
-	public Competition(Window mainWindow, NewCompetitionWindow newCompetitionWindow) {
+	public NewCompetition(Window mainWindow, NewCompetitionWindow newCompetitionWindow) {
 
 		this.mainWindow = mainWindow;
 		competitionWindow = newCompetitionWindow;
