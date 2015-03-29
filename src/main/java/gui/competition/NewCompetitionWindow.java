@@ -1,6 +1,7 @@
 package gui.competition;
 
 import gui.Window;
+import gui.intefaces.NewWindow;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -18,31 +19,27 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class NewCompetitionWindow extends JFrame {
+public class NewCompetitionWindow extends NewWindow {
 
-	private JPanel mainPanel, competitionTitlePanel, competitionDatePanel,
-			competitionPlacePanel, competitionLapsPanel, competitionTypePanel,
-			competitionCheckBoxesOuterPanel, competitionCheckBoxesPanel;
-	private JComboBox competitionTypeComboBox;
-	private JLabel competitionTitleLabel, competititionDateLabel,
-			competitionPlaceLabel, competitionLapsLabel, competititonTypeLabel,
-			compettionCheckBoxesLabel;
-	private JTextField competitionTitleTextFIeld, competitionDateTextField,
-			competitionPlaceTextField, competitionLapsTextField;
-	private JCheckBox competitionCheckBoxBirth, competitionCheckBoxCity,
-			competitionCheckBoxDistrict, competitionCheckBoxCategory,
-			competitionCheckBoxGender, competitionCheckBoxWeight,
-			competitionCheckBoxHeight, competitionCheckBoxTeam;
-	private JButton competitionConfirmButton;
+	private JPanel mainPanel, titlePanel, datePanel, placePanel, lapsPanel,
+			typePanel, checkBoxesOuterPanel, checkBoxesPanel;
 
-	private Window window;
-	private NewCompetitionWindow competitionWindow;
+	private JLabel titleLabel, dateLabel, placeLabel, lapsLabel, typeLabel,
+			checkBoxesLabel;
+
+	private JComboBox typeComboBox;
+
+	private JTextField titleTextField, dateTextField, placeTextField,
+			lapsTextField;
+
+	private JCheckBox birthCheckBox, categoryCheckBox, cityCheckBox,
+			districtCheckBox, genderCheckBox, weightCheckBox, heightCheckBox,
+			teamCheckBox;;
 
 	private Competition competition;
 
 	public NewCompetitionWindow(Window window) {
-		this.window = window;
-		this.competitionWindow = this;
+		super(window);
 
 		setTitle("NOWE ZAWODY");
 		setSize(650, 250);
@@ -50,13 +47,11 @@ public class NewCompetitionWindow extends JFrame {
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setVisible(true);
-
-		initUI();
 	}
 
-	private void initUI() {
+	public void initUI() {
 
-		Container contentPane = new Container();
+		contentPane = new Container();
 		contentPane = getContentPane();
 
 		// mainPanel
@@ -66,155 +61,206 @@ public class NewCompetitionWindow extends JFrame {
 		contentPane.add(mainPanel, BorderLayout.NORTH);
 
 		// competitionTitle
-		competitionTitlePanel = new JPanel();
-		competitionTitlePanel.setLayout(new GridLayout(1, 2));
-		competitionTitleLabel = new JLabel("Nazwa zawodów");
-		competitionTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		competitionTitleTextFIeld = new JTextField();
+		titlePanel = new JPanel();
+		titlePanel.setLayout(new GridLayout(1, 2));
+		titleLabel = new JLabel("Nazwa zawodów");
+		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		titleTextField = new JTextField();
 
-		competitionTitlePanel.add(competitionTitleLabel);
-		competitionTitlePanel.add(competitionTitleTextFIeld);
-		mainPanel.add(competitionTitlePanel);
+		titlePanel.add(titleLabel);
+		titlePanel.add(titleTextField);
+		mainPanel.add(titlePanel);
 
 		// competitionDate
-		competitionDatePanel = new JPanel();
-		competitionDatePanel.setLayout(new GridLayout(1, 2));
-		competititionDateLabel = new JLabel("Data zawodów");
-		competititionDateLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		competitionDateTextField = new JTextField();
+		datePanel = new JPanel();
+		datePanel.setLayout(new GridLayout(1, 2));
+		dateLabel = new JLabel("Data zawodów");
+		dateLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		dateTextField = new JTextField();
 
-		competitionDatePanel.add(competititionDateLabel);
-		competitionDatePanel.add(competitionDateTextField);
-		mainPanel.add(competitionDatePanel);
+		datePanel.add(dateLabel);
+		datePanel.add(dateTextField);
+		mainPanel.add(datePanel);
 
 		// competitionPlace
-		competitionPlacePanel = new JPanel();
-		competitionPlacePanel.setLayout(new GridLayout(1, 2));
-		competitionPlaceLabel = new JLabel("Miejsce zawodów");
-		competitionPlaceLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		competitionPlaceTextField = new JTextField();
+		placePanel = new JPanel();
+		placePanel.setLayout(new GridLayout(1, 2));
+		placeLabel = new JLabel("Miejsce zawodów");
+		placeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		placeTextField = new JTextField();
 
-		competitionPlacePanel.add(competitionPlaceLabel);
-		competitionPlacePanel.add(competitionPlaceTextField);
-		mainPanel.add(competitionPlacePanel);
+		placePanel.add(placeLabel);
+		placePanel.add(placeTextField);
+		mainPanel.add(placePanel);
 
 		// competitionLaps
-		competitionLapsPanel = new JPanel();
-		competitionLapsPanel.setLayout(new GridLayout(1, 2));
-		competitionLapsLabel = new JLabel("Liczba okr¹¿eñ");
-		competitionLapsLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		competitionLapsTextField = new JTextField();
+		lapsPanel = new JPanel();
+		lapsPanel.setLayout(new GridLayout(1, 2));
+		lapsLabel = new JLabel("Liczba okr¹¿eñ");
+		lapsLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lapsTextField = new JTextField();
 
-		competitionLapsPanel.add(competitionLapsLabel);
-		competitionLapsPanel.add(competitionLapsTextField);
-		mainPanel.add(competitionLapsPanel);
+		lapsPanel.add(lapsLabel);
+		lapsPanel.add(lapsTextField);
+		mainPanel.add(lapsPanel);
 
 		// competitionType
-		competitionTypePanel = new JPanel();
-		competitionTypePanel.setLayout(new GridLayout(1, 2));
-		competititonTypeLabel = new JLabel("Rodzaj startu");
-		competititonTypeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		competitionTypeComboBox = new JComboBox();
-		competitionTypeComboBox.addItem("Wspolny");
-		competitionTypeComboBox.addItem("Indywidualny");
+		typePanel = new JPanel();
+		typePanel.setLayout(new GridLayout(1, 2));
+		typeLabel = new JLabel("Rodzaj startu");
+		typeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		typeComboBox = new JComboBox();
+		typeComboBox.addItem("Wspolny");
+		typeComboBox.addItem("Indywidualny");
 
-		competitionTypePanel.add(competititonTypeLabel);
-		competitionTypePanel.add(competitionTypeComboBox);
-		mainPanel.add(competitionTypePanel);
+		typePanel.add(typeLabel);
+		typePanel.add(typeComboBox);
+		mainPanel.add(typePanel);
 
 		// competitionCheckBoxes
-		competitionCheckBoxesOuterPanel = new JPanel();
-		competitionCheckBoxesOuterPanel.setLayout(new GridLayout(1, 2));
+		checkBoxesOuterPanel = new JPanel();
+		checkBoxesOuterPanel.setLayout(new GridLayout(1, 2));
 
-		competitionCheckBoxesPanel = new JPanel();
-		competitionCheckBoxesPanel.setLayout(new GridLayout(2, 4));
-		compettionCheckBoxesLabel = new JLabel("Kolumny tabeli");
-		compettionCheckBoxesLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		competitionCheckBoxBirth = new JCheckBox("Data UR");
-		competitionCheckBoxCity = new JCheckBox("Miasto");
-		competitionCheckBoxDistrict = new JCheckBox("Powiat");
-		competitionCheckBoxCategory = new JCheckBox("Kategoria");
-		competitionCheckBoxGender = new JCheckBox("P³eæ");
-		competitionCheckBoxWeight = new JCheckBox("Waga");
-		competitionCheckBoxHeight = new JCheckBox("Wzrost");
-		competitionCheckBoxTeam = new JCheckBox("Dru¿yna");
+		checkBoxesPanel = new JPanel();
+		checkBoxesPanel.setLayout(new GridLayout(2, 4));
+		checkBoxesLabel = new JLabel("Kolumny tabeli");
+		checkBoxesLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		birthCheckBox = new JCheckBox("Data UR");
+		cityCheckBox = new JCheckBox("Miasto");
+		districtCheckBox = new JCheckBox("Powiat");
+		categoryCheckBox = new JCheckBox("Kategoria");
+		genderCheckBox = new JCheckBox("P³eæ");
+		weightCheckBox = new JCheckBox("Waga");
+		heightCheckBox = new JCheckBox("Wzrost");
+		teamCheckBox = new JCheckBox("Dru¿yna");
 
-		competitionCheckBoxesPanel.add(competitionCheckBoxBirth);
-		competitionCheckBoxesPanel.add(competitionCheckBoxCity);
-		competitionCheckBoxesPanel.add(competitionCheckBoxDistrict);
-		competitionCheckBoxesPanel.add(competitionCheckBoxCategory);
-		competitionCheckBoxesPanel.add(competitionCheckBoxGender);
-		competitionCheckBoxesPanel.add(competitionCheckBoxWeight);
-		competitionCheckBoxesPanel.add(competitionCheckBoxHeight);
-		competitionCheckBoxesPanel.add(competitionCheckBoxTeam);
+		checkBoxesPanel.add(birthCheckBox);
+		checkBoxesPanel.add(cityCheckBox);
+		checkBoxesPanel.add(districtCheckBox);
+		checkBoxesPanel.add(categoryCheckBox);
+		checkBoxesPanel.add(genderCheckBox);
+		checkBoxesPanel.add(weightCheckBox);
+		checkBoxesPanel.add(heightCheckBox);
+		checkBoxesPanel.add(teamCheckBox);
 
-		competitionCheckBoxesOuterPanel.add(compettionCheckBoxesLabel);
-		competitionCheckBoxesOuterPanel.add(competitionCheckBoxesPanel);
-		mainPanel.add(competitionCheckBoxesOuterPanel);
+		checkBoxesOuterPanel.add(checkBoxesLabel);
+		checkBoxesOuterPanel.add(checkBoxesPanel);
+		mainPanel.add(checkBoxesOuterPanel);
 
 		// competitionButtons
-		competitionConfirmButton = new JButton("OK");
-		competitionConfirmButton.setHorizontalAlignment(SwingConstants.CENTER);
-		competitionConfirmButton.addActionListener(new ActionListener() {
+		confirmButton = new JButton("OK");
+		confirmButton.setHorizontalAlignment(SwingConstants.CENTER);
+		confirmButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				competition = new Competition(window, competitionWindow);
+				competition = new Competition(window, NewCompetitionWindow.this);
 			}
 		});
 
-		mainPanel.add(competitionConfirmButton);
+		mainPanel.add(confirmButton);
 
 	}
 
-	public JTextField getCompetitionTitleTextFIeld() {
-		return competitionTitleTextFIeld;
+	public JTextField getTitleTextField() {
+		return titleTextField;
 	}
 
-	public JTextField getCompetitionDateTextField() {
-		return competitionDateTextField;
+	public JTextField getDateTextField() {
+		return dateTextField;
 	}
 
-	public JTextField getCompetitionPlaceTextField() {
-		return competitionPlaceTextField;
+	public JTextField getPlaceTextField() {
+		return placeTextField;
 	}
 
-	public JTextField getCompetitionLapsTextField() {
-		return competitionLapsTextField;
+	public JTextField getLapsTextField() {
+		return lapsTextField;
 	}
 
-	public JComboBox getCompetitionTypeComboBox() {
-		return competitionTypeComboBox;
+	public void setTitleTextField(JTextField titleTextField) {
+		this.titleTextField = titleTextField;
 	}
 
-	public JCheckBox getCompetitionCheckBoxBirth() {
-		return competitionCheckBoxBirth;
+	public void setDateTextField(JTextField dateTextField) {
+		this.dateTextField = dateTextField;
 	}
 
-	public JCheckBox getCompetitionCheckBoxCity() {
-		return competitionCheckBoxCity;
+	public void setPlaceTextField(JTextField placeTextField) {
+		this.placeTextField = placeTextField;
 	}
 
-	public JCheckBox getCompetitionCheckBoxDistrict() {
-		return competitionCheckBoxDistrict;
+	public void setLapsTextField(JTextField lapsTextField) {
+		this.lapsTextField = lapsTextField;
 	}
 
-	public JCheckBox getCompetitionCheckBoxCategory() {
-		return competitionCheckBoxCategory;
+	public JComboBox getTypeComboBox() {
+		return typeComboBox;
 	}
 
-	public JCheckBox getCompetitionCheckBoxGender() {
-		return competitionCheckBoxGender;
+	public JCheckBox getBirthCheckBox() {
+		return birthCheckBox;
 	}
 
-	public JCheckBox getCompetitionCheckBoxWeight() {
-		return competitionCheckBoxWeight;
+	public JCheckBox getCategoryCheckBox() {
+		return categoryCheckBox;
 	}
 
-	public JCheckBox getCompetitionCheckBoxHeight() {
-		return competitionCheckBoxHeight;
+	public JCheckBox getCityCheckBox() {
+		return cityCheckBox;
 	}
 
-	public JCheckBox getCompetitionCheckBoxTeam() {
-		return competitionCheckBoxTeam;
+	public JCheckBox getDistrictCheckBox() {
+		return districtCheckBox;
 	}
 
+	public JCheckBox getGenderCheckBox() {
+		return genderCheckBox;
+	}
+
+	public JCheckBox getWeightCheckBox() {
+		return weightCheckBox;
+	}
+
+	public JCheckBox getHeightCheckBox() {
+		return heightCheckBox;
+	}
+
+	public JCheckBox getTeamCheckBox() {
+		return teamCheckBox;
+	}
+
+	public void setTypeComboBox(JComboBox typeComboBox) {
+		this.typeComboBox = typeComboBox;
+	}
+
+	public void setBirthCheckBox(JCheckBox birthCheckBox) {
+		this.birthCheckBox = birthCheckBox;
+	}
+
+	public void setCategoryCheckBox(JCheckBox categoryCheckBox) {
+		this.categoryCheckBox = categoryCheckBox;
+	}
+
+	public void setCityCheckBox(JCheckBox cityCheckBox) {
+		this.cityCheckBox = cityCheckBox;
+	}
+
+	public void setDistrictCheckBox(JCheckBox districtCheckBox) {
+		this.districtCheckBox = districtCheckBox;
+	}
+
+	public void setGenderCheckBox(JCheckBox genderCheckBox) {
+		this.genderCheckBox = genderCheckBox;
+	}
+
+	public void setWeightCheckBox(JCheckBox weightCheckBox) {
+		this.weightCheckBox = weightCheckBox;
+	}
+
+	public void setHeightCheckBox(JCheckBox heightCheckBox) {
+		this.heightCheckBox = heightCheckBox;
+	}
+
+	public void setTeamCheckBox(JCheckBox teamCheckBox) {
+		this.teamCheckBox = teamCheckBox;
+	}
 }

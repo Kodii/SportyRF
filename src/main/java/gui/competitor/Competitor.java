@@ -1,5 +1,7 @@
 package gui.competitor;
 
+import java.awt.Container;
+
 public abstract class Competitor {
 	private String name;
 	private String surname;
@@ -12,4 +14,9 @@ public abstract class Competitor {
 	private String height;
 	private String team;
 	private int startNumber;
+
+	protected Container contentPane = new Container();
+
+	private void initUI() {
+	}
 }

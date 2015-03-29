@@ -25,14 +25,14 @@ public class Competition {
 	private TableColumnModel tableColumnModel;
 
 	private Window mainWindow;
-	private NewCompetitionWindow window;
+	private NewCompetitionWindow competitionWindow;
 
 	private ArrayList<String> optionList = new ArrayList<String>();
 
-	public Competition(Window mainWindow, NewCompetitionWindow window) {
+	public Competition(Window mainWindow, NewCompetitionWindow newCompetitionWindow) {
 
 		this.mainWindow = mainWindow;
-		this.window = window;
+		competitionWindow = newCompetitionWindow;
 
 		jtableStartList = mainWindow.getStartListTable();
 		model = (DefaultTableModel) jtableStartList.getModel();
@@ -50,16 +50,16 @@ public class Competition {
 
 		drawTable(); // drawing table into JFrame
 
-		window.dispose(); // disposing add window
+		competitionWindow.dispose(); // disposing add window
 	}
 
 	private void databaseInsert() {
 
-		title = window.getCompetitionTitleTextFIeld().getText();
-		date = window.getCompetitionDateTextField().getText();
-		place = window.getCompetitionPlaceTextField().getText();
-		laps = window.getCompetitionLapsTextField().getText();
-		if (window.getCompetitionTypeComboBox().getSelectedItem().toString() == "Wspolny")
+		title = competitionWindow.getTitleTextField().getText();
+		date = competitionWindow.getDateTextField().getText();
+		place = competitionWindow.getPlaceTextField().getText();
+		laps = competitionWindow.getLapsTextField().getText();
+		if (competitionWindow.getTypeComboBox().getSelectedItem().toString() == "Wspolny")
 			startType = 1;
 		else
 			startType = 2;
@@ -75,28 +75,28 @@ public class Competition {
 		optionList.add("NR");
 		optionList.add("NAZWISKO");
 		optionList.add("IMIÊ");
-		if (window.getCompetitionCheckBoxBirth().isSelected() == true) {
+		if (competitionWindow.getBirthCheckBox().isSelected() == true) {
 			optionList.add("DATA UR");
 		}
-		if (window.getCompetitionCheckBoxCity().isSelected() == true) {
+		if (competitionWindow.getCityCheckBox().isSelected() == true) {
 			optionList.add("MIASTO");
 		}
-		if (window.getCompetitionCheckBoxDistrict().isSelected() == true) {
+		if (competitionWindow.getDistrictCheckBox().isSelected() == true) {
 			optionList.add("POWIAT");
 		}
-		if (window.getCompetitionCheckBoxCategory().isSelected() == true) {
+		if (competitionWindow.getCategoryCheckBox().isSelected() == true) {
 			optionList.add("KATEGORIA");
 		}
-		if (window.getCompetitionCheckBoxGender().isSelected() == true) {
+		if (competitionWindow.getGenderCheckBox().isSelected() == true) {
 			optionList.add("P£EÆ");
 		}
-		if (window.getCompetitionCheckBoxWeight().isSelected() == true) {
+		if (competitionWindow.getWeightCheckBox().isSelected() == true) {
 			optionList.add("WAGA");
 		}
-		if (window.getCompetitionCheckBoxHeight().isSelected() == true) {
+		if (competitionWindow.getHeightCheckBox().isSelected() == true) {
 			optionList.add("WZROST");
 		}
-		if (window.getCompetitionCheckBoxTeam().isSelected() == true) {
+		if (competitionWindow.getTeamCheckBox().isSelected() == true) {
 			optionList.add("DRU¯YNA");
 		}
 	}

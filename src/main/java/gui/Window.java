@@ -2,7 +2,7 @@ package gui;
 
 import gui.competition.Competition;
 import gui.competition.NewCompetitionWindow;
-import gui.competitor.NewCompetitor;
+import gui.competitor.NewCompetitorWindow;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -46,8 +46,11 @@ public class Window extends JFrame {
 	private JPanel startListPanel, racePanel, insidePanel;
 	private JScrollPane listScroller, rightPane;
 	private JTable startListTable;
+	
 	private Competition competition;
+	
 	private NewCompetitionWindow competitionWindow;
+	private NewCompetitorWindow newCompetitorWindow;
 
 	private Font tableColumnsFont, tableFont;
 
@@ -123,7 +126,7 @@ public class Window extends JFrame {
 		menuCompetitorNew.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				NewCompetitor newCompetitor = new NewCompetitor(window);
+				newCompetitorWindow = new NewCompetitorWindow();
 			}
 		});
 		menuCompetitor.add(menuCompetitorNew);
