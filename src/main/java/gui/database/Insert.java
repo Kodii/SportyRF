@@ -35,5 +35,68 @@ public class Insert extends DatabaseConnection {
             e.printStackTrace();
         }
         return false;
+	}
+    
+    public static boolean insertCompetitor(	String name,
+    									   	String surname,
+    									   	String birt,
+    									   	String city,
+    									   	String district,
+    									   	Integer team,
+    									   	String weight,
+    									   	String height,
+    									   	Integer category){
+    	
+    	System.out.println("ADDING COMPETITOR");
+    	
+    	try{
+    		Connection connection = getConnection();
+    		int competitior_id = Select.getCompetitorId();
+    		PreparedStatement insertEvent = connection.prepareStatement("INSERT INTO Participant(name, surname, birt, id, city, district, team, weight, height, category) VALUES (?,?,?,?,?,?,?,?,?,?)");
+    		
+    		insertEvent.setString(1, name);
+    		insertEvent.setString(2, surname);
+    		insertEvent.setString(3, birt);
+    		insertEvent.setInt(4, competitior_id);
+    		insertEvent.setString(5, city);
+    		insertEvent.setString(6, district);
+    		insertEvent.setInt(7, team);
+    		insertEvent.setString(8, weight);
+    		insertEvent.setString(9, height);
+    		insertEvent.setInt(10, category);
+    		insertEvent.executeUpdate();
+    		
+    		connection.commit();
+    		connection.close();
+    		
+    		return true;
+    		
+    		
+    	} catch (SQLException e){
+    		e.printStackTrace();
+    	}
+    	return false;
+    	
     }
 }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+

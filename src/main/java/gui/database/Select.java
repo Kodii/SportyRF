@@ -35,6 +35,33 @@ public class Select extends DatabaseConnection {
 
         return rowId;
     }
+    
+    public static int getCompetitorId() {
+        int rowId = -1;
+        ResultSet rs = null;
+
+        System.out.println("TRYING TO GET LAST COMPETITOR ID");
+
+        try {
+            Connection connection = getConnection();
+            PreparedStatement getLastId = connection.prepareStatement("SELECT MAX(id) from Participant");
+            rs = getLastId.executeQuery();
+            rs.next();
+            rowId = rs.getInt(1);
+            connection.close();
+
+            if (rowId == 0){
+                return 1;
+            }else{
+                return rowId + 1;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return rowId;
+    }
 
 
     public static ResultSet getUsers() {
@@ -96,4 +123,5 @@ public class Select extends DatabaseConnection {
         }
 
     }
+    
 }

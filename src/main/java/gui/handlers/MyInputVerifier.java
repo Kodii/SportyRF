@@ -9,6 +9,7 @@ import javax.swing.JTextField;
 public class MyInputVerifier extends InputVerifier {
 
 	public static final int NUMBER = 1;
+	public static final int DATE = 2;
 	private int option;
 
 	private JTextField textField;
@@ -26,6 +27,9 @@ public class MyInputVerifier extends InputVerifier {
 		this.input = input;
 		if (option == NUMBER) {
 			checkIsNumber();
+		}
+		if (option == DATE) {
+			checkIsDate();
 		}
 		return true;
 	}
@@ -45,6 +49,10 @@ public class MyInputVerifier extends InputVerifier {
 			textField.setText("");
 			canProceed = false;
 		}
+	}
+	
+	private void checkIsDate(){
+		String regex = "[0-9]";
 	}
 
 	public boolean isCanProceed() {

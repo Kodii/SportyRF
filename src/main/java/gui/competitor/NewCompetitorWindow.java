@@ -29,15 +29,14 @@ public class NewCompetitorWindow extends NewWindow {
 			heightLabel, teamLabel, startNumberLabel;
 
 	private JTextField nameTextField, surnameTextField, dateTextField,
-			cityTextField, districtTextField, categoryTextField,
-			genderTextField, weightTextField, heightTextField,
-			startNumberTextField;
+			cityTextField, districtTextField, genderTextField, weightTextField,
+			heightTextField, startNumberTextField;
 
-	private JComboBox teamComboBox;
+	private JComboBox teamComboBox, categoryComboBox;
 
 	private NewCompetitor competitor;
 
-	private MyInputVerifier numberVerifier;
+	private MyInputVerifier myInputVerifier;
 
 	public NewCompetitorWindow() {
 		setTitle("DODAJ NOWEGO ZAWODNIKA");
@@ -114,9 +113,14 @@ public class NewCompetitorWindow extends NewWindow {
 		categoryPanel.setLayout(new GridLayout(1, 2));
 		categoryLabel = new JLabel("Kategoria");
 		categoryLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		categoryTextField = new JTextField();
+		categoryComboBox = new JComboBox();
+		categoryComboBox.addItem("DO 25");
+		categoryComboBox.addItem("DO 35");
+		categoryComboBox.addItem("DO 45");
+		categoryComboBox.addItem("DO 55");
+		categoryComboBox.addItem("ELITA");
 		categoryPanel.add(categoryLabel);
-		categoryPanel.add(categoryTextField);
+		categoryPanel.add(categoryComboBox);
 		mainPanel.add(categoryPanel);
 
 		// competitorGender
@@ -168,8 +172,10 @@ public class NewCompetitorWindow extends NewWindow {
 		startNumberLabel = new JLabel("Numer Startowy");
 		startNumberLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		startNumberTextField = new JTextField();
-		numberVerifier = new MyInputVerifier(startNumberTextField, MyInputVerifier.NUMBER);
-		startNumberTextField.setInputVerifier(numberVerifier);
+		myInputVerifier = new MyInputVerifier(startNumberTextField,
+				MyInputVerifier.NUMBER);
+		startNumberTextField.setInputVerifier(myInputVerifier);
+
 		startNumberPanel.add(startNumberLabel);
 		startNumberPanel.add(startNumberTextField);
 		mainPanel.add(startNumberPanel);
@@ -180,7 +186,7 @@ public class NewCompetitorWindow extends NewWindow {
 		confirmButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				if (numberVerifier.isCanProceed())
+				if (myInputVerifier.isCanProceed())
 					competitor = new NewCompetitor(NewCompetitorWindow.this);
 			}
 		});

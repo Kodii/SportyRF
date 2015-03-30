@@ -15,8 +15,4 @@ public abstract class Competitor {
 	private String team;
 	private int startNumber;
 
-	protected Container contentPane = new Container();
-
-	private void initUI() {
-	}
 }

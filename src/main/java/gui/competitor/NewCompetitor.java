@@ -1,6 +1,9 @@
 package gui.competitor;
 
-public class NewCompetitor {
+import gui.database.Insert;
+import gui.database.Select;
+
+public class NewCompetitor extends Competitor{
 	
 	private NewCompetitorWindow competitorWindow;
 	
