@@ -70,7 +70,7 @@ public class Select extends DatabaseConnection {
 
         try {
             Connection connection = getConnection();
-            PreparedStatement statement = connection.prepareStatement("SELECT id, name, surname, birt, city, district, team, weight, hieght, category FROM Participant");
+            PreparedStatement statement = connection.prepareStatement("SELECT id, name, surname, gender, birt, city, district, team, weight, height, category, startnumber FROM Participant");
             rs = statement.executeQuery();
             connection.close();
 
@@ -78,7 +78,7 @@ public class Select extends DatabaseConnection {
             e.printStackTrace();
         }
         System.out.println("GOT USERS... RETURNING DATA");
-
+       
         return rs;
     }
 
@@ -110,6 +110,40 @@ public class Select extends DatabaseConnection {
 
         return competition;
 
+    }
+    
+    public static HashMap getCompetitor(int competitorID){
+    	System.out.println("TRYING TO GET COMPETITOR BY ID");
+    	
+    	ResultSet rs = null;
+    	HashMap<String, String> competitor = new HashMap<String, String>();
+    	
+    	try{
+    		Connection connection = getConnection();
+    		PreparedStatement getCompetitorStm = connection.prepareStatement("SELECT id, name, surname, gender, birt, city, district, team, weight, height, category, startnumber FROM Participant WHERE id=?");
+    		getCompetitorStm.setInt(1, competitorID);
+    		rs = getCompetitorStm.executeQuery();
+    		rs.next();
+    		
+    		competitor.put("competitorID", Integer.toString(rs.getInt(1)));
+    		competitor.put("competitorName", rs.getString(2));
+    		competitor.put("competitorSurname", rs.getString(3));
+    		competitor.put("competitorGender", Integer.toString(rs.getInt(4)));
+    		competitor.put("competitorBirth", rs.getString(5));
+    		competitor.put("competitorCity", rs.getString(6));
+    		competitor.put("competitorDistrict", rs.getString(7));
+    		competitor.put("competitorTeam", Integer.toString(rs.getInt(8)));
+    		competitor.put("competitorWeight", rs.getString(9));
+    		competitor.put("competitorHeight", rs.getString(10));
+    		competitor.put("competitorCategory", Integer.toString(rs.getInt(11)));
+
+    		
+    		connection.close();
+    	}catch (SQLException e){
+    		e.printStackTrace();
+    	}
+    	
+    	return competitor;
     }
 
     public static void hashTableTest(HashMap table){

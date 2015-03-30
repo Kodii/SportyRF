@@ -29,10 +29,10 @@ public class NewCompetitorWindow extends NewWindow {
 			heightLabel, teamLabel, startNumberLabel;
 
 	private JTextField nameTextField, surnameTextField, dateTextField,
-			cityTextField, districtTextField, genderTextField, weightTextField,
-			heightTextField, startNumberTextField;
+			cityTextField, districtTextField, weightTextField, heightTextField,
+			startNumberTextField;
 
-	private JComboBox teamComboBox, categoryComboBox;
+	private JComboBox teamComboBox, categoryComboBox, genderComboBox;
 
 	private NewCompetitor competitor;
 
@@ -128,9 +128,11 @@ public class NewCompetitorWindow extends NewWindow {
 		genderPanel.setLayout(new GridLayout(1, 2));
 		genderLabel = new JLabel("P³eæ");
 		genderLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		genderTextField = new JTextField();
+		genderComboBox = new JComboBox();
+		genderComboBox.addItem("MEZCZYZNA");
+		genderComboBox.addItem("KOBIETA");
 		genderPanel.add(genderLabel);
-		genderPanel.add(genderTextField);
+		genderPanel.add(genderComboBox);
 		mainPanel.add(genderPanel);
 
 		// competitorWeight
@@ -193,6 +195,50 @@ public class NewCompetitorWindow extends NewWindow {
 
 		mainPanel.add(confirmButton);
 
+	}
+
+	public JComboBox getTeamComboBox() {
+		return teamComboBox;
+	}
+
+	public JComboBox getCategoryComboBox() {
+		return categoryComboBox;
+	}
+
+	public JComboBox getGenderComboBox() {
+		return genderComboBox;
+	}
+
+	public JTextField getNameTextField() {
+		return nameTextField;
+	}
+
+	public JTextField getSurnameTextField() {
+		return surnameTextField;
+	}
+
+	public JTextField getDateTextField() {
+		return dateTextField;
+	}
+
+	public JTextField getCityTextField() {
+		return cityTextField;
+	}
+
+	public JTextField getDistrictTextField() {
+		return districtTextField;
+	}
+
+	public JTextField getWeightTextField() {
+		return weightTextField;
+	}
+
+	public JTextField getHeightTextField() {
+		return heightTextField;
+	}
+
+	public JTextField getStartNumberTextField() {
+		return startNumberTextField;
 	}
 
 }
