@@ -1,18 +1,22 @@
 package gui.competitor;
 
-import java.awt.Container;
+import gui.database.Select;
 
-public abstract class Competitor {
+public class Competitor {
+	
+	protected int id;
 	protected String name;
 	protected String surname;
 	protected String date;
 	protected String city;
 	protected String district;
-	protected int category;
-	protected int gender;
+	protected int category; // int
+	protected int gender;	// int
 	protected String weight;
 	protected String height;
-	protected int team;
+	protected int team;	//	int	
 	protected int startNumber;
+	
+	protected String text;
 
 }

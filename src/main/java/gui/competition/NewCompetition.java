@@ -4,21 +4,14 @@ import gui.Window;
 import gui.database.Insert;
 import gui.database.Select;
 
-import java.awt.Color;
-import java.awt.Component;
 import java.util.ArrayList;
 
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
-public class NewCompetition {
-
-	private String title, date, place, laps;
-	private int startType;
+public class NewCompetition extends Competition {
 
 	private JTable jtableStartList;
 	private DefaultTableModel model;
@@ -59,10 +52,7 @@ public class NewCompetition {
 		date = competitionWindow.getDateTextField().getText();
 		place = competitionWindow.getPlaceTextField().getText();
 		laps = competitionWindow.getLapsTextField().getText();
-		if (competitionWindow.getTypeComboBox().getSelectedItem().toString() == "Wspolny")
-			startType = 1;
-		else
-			startType = 2;
+		startType = competitionWindow.getTypeComboBox().getSelectedIndex() + 1;
 
 		Insert.insertCompetition(title, place, date, laps, startType);
 

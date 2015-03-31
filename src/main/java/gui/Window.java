@@ -2,6 +2,7 @@ package gui;
 
 import gui.competition.NewCompetition;
 import gui.competition.NewCompetitionWindow;
+import gui.competitor.DeleteCompetitorWindow;
 import gui.competitor.NewCompetitorWindow;
 
 import java.awt.BorderLayout;
@@ -41,6 +42,7 @@ import javax.swing.table.DefaultTableModel;
  */
 
 public class Window extends JFrame {
+	
 
 	private JTabbedPane tabbedPane;
 	private JPanel startListPanel, racePanel, insidePanel;
@@ -51,6 +53,7 @@ public class Window extends JFrame {
 	
 	private NewCompetitionWindow competitionWindow;
 	private NewCompetitorWindow newCompetitorWindow;
+	private DeleteCompetitorWindow deleteCompetitorWindow;
 
 	private Font tableColumnsFont, tableFont;
 
@@ -136,6 +139,12 @@ public class Window extends JFrame {
 		JMenuItem menuCompetitorDelete = new JMenuItem("USUŃ");
 		menuCompetitorDelete.setMnemonic(KeyEvent.VK_D);
 		menuCompetitorDelete.setToolTipText("Wczytuje z pliku (alt+d)");
+		menuCompetitorDelete.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				deleteCompetitorWindow = new DeleteCompetitorWindow();
+			}
+		});
 		menuCompetitor.add(menuCompetitorDelete);
 		// Menu Competitor - delete
 

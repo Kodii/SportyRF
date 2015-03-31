@@ -136,6 +136,7 @@ public class Select extends DatabaseConnection {
     		competitor.put("competitorWeight", rs.getString(9));
     		competitor.put("competitorHeight", rs.getString(10));
     		competitor.put("competitorCategory", Integer.toString(rs.getInt(11)));
+    		competitor.put("competitorStartNumber", Integer.toString(rs.getInt(12)));
 
     		
     		connection.close();
