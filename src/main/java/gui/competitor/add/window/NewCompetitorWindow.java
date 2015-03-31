@@ -1,5 +1,6 @@
-package gui.competitor;
+package gui.competitor.add.window;
 
+import gui.competitor.add.NewCompetitor;
 import gui.handlers.MyInputVerifier;
 import gui.intefaces.NewWindow;
 

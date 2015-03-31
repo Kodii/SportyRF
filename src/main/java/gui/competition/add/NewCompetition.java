@@ -1,6 +1,8 @@
-package gui.competition;
+package gui.competition.add;
 
 import gui.Window;
+import gui.competition.Competition;
+import gui.competition.add.window.NewCompetitionWindow;
 import gui.database.Insert;
 import gui.database.Select;
 
@@ -48,13 +50,13 @@ public class NewCompetition extends Competition {
 
 	private void databaseInsert() {
 
-		title = competitionWindow.getTitleTextField().getText();
-		date = competitionWindow.getDateTextField().getText();
-		place = competitionWindow.getPlaceTextField().getText();
-		laps = competitionWindow.getLapsTextField().getText();
-		startType = competitionWindow.getTypeComboBox().getSelectedIndex() + 1;
+		setTitle(competitionWindow.getTitleTextField().getText());
+		setDate(competitionWindow.getDateTextField().getText());
+		setPlace(competitionWindow.getPlaceTextField().getText());
+		setLaps(competitionWindow.getLapsTextField().getText());
+		setStartType(competitionWindow.getTypeComboBox().getSelectedIndex() + 1);
 
-		Insert.insertCompetition(title, place, date, laps, startType);
+		Insert.insertCompetition(getTitle(), getPlace(), getDate(), getLaps(), getStartType());
 
 		System.out.println("Inserted:"
 				+ Select.getCompetition(Select.getCompetitionId() - 1));

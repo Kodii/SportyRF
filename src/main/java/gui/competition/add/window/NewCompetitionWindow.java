@@ -1,6 +1,7 @@
-package gui.competition;
+package gui.competition.add.window;
 
 import gui.Window;
+import gui.competition.add.NewCompetition;
 import gui.intefaces.NewWindow;
 
 import java.awt.BorderLayout;

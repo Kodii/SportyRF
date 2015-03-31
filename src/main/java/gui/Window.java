@@ -1,9 +1,9 @@
 package gui;
 
-import gui.competition.NewCompetition;
-import gui.competition.NewCompetitionWindow;
-import gui.competitor.DeleteCompetitorWindow;
-import gui.competitor.NewCompetitorWindow;
+import gui.competition.add.NewCompetition;
+import gui.competition.add.window.NewCompetitionWindow;
+import gui.competitor.add.window.NewCompetitorWindow;
+import gui.competitor.delete.window.DeleteCompetitorWindow;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

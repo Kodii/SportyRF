@@ -2,7 +2,7 @@ package gui.intefaces;
 
 import gui.Window;
 import gui.competitor.Competitor;
-import gui.competitor.DeleteCompetitor;
+import gui.competitor.delete.DeleteCompetitor;
 
 import java.awt.Container;
 import java.util.ArrayList;

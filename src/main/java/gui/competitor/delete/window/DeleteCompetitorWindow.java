@@ -1,6 +1,7 @@
-package gui.competitor;
+package gui.competitor.delete.window;
 
-import gui.Window;
+import gui.competitor.Competitor;
+import gui.competitor.delete.DeleteCompetitor;
 import gui.intefaces.NewWindow;
 
 import java.awt.BorderLayout;
@@ -54,7 +55,8 @@ public class DeleteCompetitorWindow extends NewWindow {
 		deleteLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		listModel = new DefaultListModel();
 		for(int i=0; i < competitorList.size(); i++){
-			listModel.addElement(competitorList.get(i).text);
+			listModel.addElement(competitorList.get(i).getName());
+
 		}
 		
 		deleteList = new JList(listModel);
