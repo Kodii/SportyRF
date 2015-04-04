@@ -1,6 +1,13 @@
 package gui;
 
+import gui.competition.add.NewCompetition;
+import gui.competition.add.window.NewCompetitionWindow;
+import gui.competitor.add.window.NewCompetitorWindow;
+import gui.competitor.delete.window.DeleteCompetitorWindow;
+
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -27,6 +34,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JToolBar;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -34,18 +42,22 @@ import javax.swing.table.DefaultTableModel;
  */
 
 public class Window extends JFrame {
+	
 
 	private JTabbedPane tabbedPane;
-	private JPanel jpanelStartList, jpanelRace, jpanelInside;
+	private JPanel startListPanel, racePanel, insidePanel;
 	private JScrollPane listScroller, rightPane;
-	private JTable jtableStartList ;
-	private Competition competition;
-//	private CompetitorNew competitor;
+	private JTable startListTable;
 	
-	private Font tableColumnsFont, tableFont;
+	private NewCompetition competition;
 	
-	private static Window window;
+	private NewCompetitionWindow competitionWindow;
+	private NewCompetitorWindow newCompetitorWindow;
+	private DeleteCompetitorWindow deleteCompetitorWindow;
 
+	private Font tableColumnsFont, tableFont;
+
+	private static Window window;
 
 	public Window() {
 		setTitle("Tutaj nazwa programu");
@@ -53,15 +65,14 @@ public class Window extends JFrame {
 		setResizable(true);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-	
-		
+
 		initExitOnClose();
 		initUI();
-			
+
 	}
 
 	private void initUI() {
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		ImageIcon quitIcon = new ImageIcon("images/blank.png");
 		ImageIcon menuCompetitionNewIcon = new ImageIcon("images/blank.png");
@@ -82,7 +93,7 @@ public class Window extends JFrame {
 		menuCompetitionNew.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				competition = new Competition(window);
+				competitionWindow = new NewCompetitionWindow(window);
 			}
 		});
 		menuCompetitions.add(menuCompetitionNew);
@@ -116,8 +127,9 @@ public class Window extends JFrame {
 		menuCompetitorNew.setMnemonic(KeyEvent.VK_S);
 		menuCompetitorNew.setToolTipText("Dodaj nowego zawodnika (alt+s)");
 		menuCompetitorNew.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
+				newCompetitorWindow = new NewCompetitorWindow();
 			}
 		});
 		menuCompetitor.add(menuCompetitorNew);
@@ -127,6 +139,12 @@ public class Window extends JFrame {
 		JMenuItem menuCompetitorDelete = new JMenuItem("USUŃ");
 		menuCompetitorDelete.setMnemonic(KeyEvent.VK_D);
 		menuCompetitorDelete.setToolTipText("Wczytuje z pliku (alt+d)");
+		menuCompetitorDelete.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				deleteCompetitorWindow = new DeleteCompetitorWindow();
+			}
+		});
 		menuCompetitor.add(menuCompetitorDelete);
 		// Menu Competitor - delete
 
@@ -202,8 +220,8 @@ public class Window extends JFrame {
 		createPage2();
 
 		tabbedPane = new JTabbedPane();
-		tabbedPane.addTab("LISTA STARTOWA", jpanelStartList);
-		tabbedPane.addTab("WYSCIG", jpanelRace);
+		tabbedPane.addTab("LISTA STARTOWA", startListPanel);
+		tabbedPane.addTab("WYSCIG", racePanel);
 		topPanel.add(tabbedPane, BorderLayout.CENTER);
 
 		// TABS //
@@ -212,8 +230,8 @@ public class Window extends JFrame {
 
 	public void createPage1() {
 
-		jpanelStartList = new JPanel();
-		jpanelStartList.setLayout(new BorderLayout());
+		startListPanel = new JPanel();
+		startListPanel.setLayout(new BorderLayout());
 		// IF WE WANT TO MOVE TOOLBAR WHEN RESIZING PASTE LINE BELOW
 		// jpanelStartList.setLayout(new BoxLayout(jpanelStartList,
 		// BoxLayout.PAGE_AXIS));
@@ -275,50 +293,52 @@ public class Window extends JFrame {
 
 		// TOOLBAR
 
-		
 		createList(); // drawing a table (blank)
 
-		jpanelInside = new JPanel();
-		jpanelInside
-				.setLayout(new BoxLayout(jpanelInside, BoxLayout.LINE_AXIS));
-		jpanelInside.setPreferredSize(new Dimension(600, 400));
+		insidePanel = new JPanel();
+		insidePanel
+				.setLayout(new BoxLayout(insidePanel, BoxLayout.LINE_AXIS));
+		insidePanel.setPreferredSize(new Dimension(600, 400));
 
-		listScroller = new JScrollPane(jtableStartList);
+		listScroller = new JScrollPane(startListTable);
 		listScroller.setPreferredSize(new Dimension(500, 60));
-		jpanelInside.add(listScroller, BorderLayout.WEST);
+		insidePanel.add(listScroller, BorderLayout.WEST);
 
 		rightPane = new JScrollPane();
 		rightPane.setPreferredSize(new Dimension(140, 80));
-		jpanelInside.add(rightPane, BorderLayout.EAST);
+		insidePanel.add(rightPane, BorderLayout.EAST);
 
 		// ADD CONTENTS
 
-		jpanelStartList.add(jtoolbarStartList, BorderLayout.NORTH);
-		jpanelStartList.add(jpanelInside, BorderLayout.CENTER);
+		startListPanel.add(jtoolbarStartList, BorderLayout.NORTH);
+		startListPanel.add(insidePanel, BorderLayout.CENTER);
 
 		// ADD CONTENTS
 
 	}
+
 	private void createList() {
 
 		DefaultTableModel model = new DefaultTableModel();
-		jtableStartList = new JTable(model);
-		
-		tableFont = new Font("Arial", Font.PLAIN, 10); //change values to change font
-		jtableStartList.setFont(tableFont);
-		
-		
-		tableColumnsFont = new Font("Arial", Font.ITALIC, 11);	//change values to change font
-		jtableStartList.getTableHeader().setFont(tableColumnsFont);
-		
-		jtableStartList.setFillsViewportHeight(true);
-//		setRowColor(jtableStartList);
+		startListTable = new JTable(model);
+
+		tableFont = new Font("Arial", Font.PLAIN, 10); // change values to
+														// change font
+		startListTable.setFont(tableFont);
+
+		tableColumnsFont = new Font("Arial", Font.ITALIC, 11); // change values
+																// to change
+																// font
+		startListTable.getTableHeader().setFont(tableColumnsFont);
+
+		startListTable.setFillsViewportHeight(true);
+		setRowColor(startListTable);
 	}
 
 	public void createPage2() {
 
-		jpanelRace = new JPanel();
-		jpanelRace.setLayout(new BorderLayout());
+		racePanel = new JPanel();
+		racePanel.setLayout(new BorderLayout());
 
 		// TOOLBAR
 
@@ -332,7 +352,7 @@ public class Window extends JFrame {
 		JButton startButton2 = new JButton("stop", icon2);
 		jtoolbarRace.add(startButton2);
 
-		jpanelRace.add(jtoolbarRace, BorderLayout.NORTH);
+		racePanel.add(jtoolbarRace, BorderLayout.NORTH);
 
 		// TOOLBAR
 
@@ -366,6 +386,20 @@ public class Window extends JFrame {
 		};
 		return quitAction;
 	}
+	
+	private void setRowColor(JTable table) {
+		table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+			@Override
+			public Component getTableCellRendererComponent(JTable table,
+					Object value, boolean isSelected, boolean hasFocus,
+					int row, int column) {
+				final Component c = super.getTableCellRendererComponent(table,
+						value, isSelected, hasFocus, row, column);
+				c.setBackground(row % 2 == 0 ? Color.LIGHT_GRAY : Color.WHITE);
+				return this;
+			}
+		});
+	}
 
 	public static void windowStart() {
 
@@ -377,39 +411,15 @@ public class Window extends JFrame {
 		});
 	}
 
-	public JPanel getJpanelInside() {
-		return jpanelInside;
+	public JTable getStartListTable() {
+		return startListTable;
 	}
 
-	public void setJpanelInside(JPanel jpanelInside) {
-		this.jpanelInside = jpanelInside;
+	public void setStartListTable(JTable startListTable) {
+		this.startListTable = startListTable;
 	}
 
-	public JScrollPane getRightPane() {
-		return rightPane;
-	}
 
-	public void setRightPane(JScrollPane rightPane) {
-		this.rightPane = rightPane;
-	}
-	public JPanel getJpanelStartList() {
-		return jpanelStartList;
-	}
 
-	public JScrollPane getListScroller() {
-		return listScroller;
-	}
-
-	public void setListScroller(JScrollPane listScroller) {
-		this.listScroller = listScroller;
-	}
-
-	public JTable getJtableStartList() {
-		return jtableStartList;
-	}
-
-	public void setJtableStartList(JTable jtableStartList) {
-		this.jtableStartList = jtableStartList;
-	}
 
 }
