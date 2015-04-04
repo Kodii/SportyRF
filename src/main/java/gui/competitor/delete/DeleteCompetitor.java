@@ -1,14 +1,19 @@
 package gui.competitor.delete;
 
 import gui.competitor.Competitor;
+import gui.database.Delete;
 import gui.database.Select;
 
 import java.util.ArrayList;
+
+import javax.swing.JList;
 
 public class DeleteCompetitor extends Competitor {
 
 	private ArrayList<Competitor> competitorList;
 	private Competitor competitor;
+	
+	private int[] selectedCompetitors;
 
 	public DeleteCompetitor() {
 		
@@ -23,6 +28,8 @@ public class DeleteCompetitor extends Competitor {
 		
 		for (int i = 1; i < Select.getCompetitorId(); i++) {
 			competitor = new Competitor();
+			
+			if(Select.getCompetitor(i).get("competitorID") == null) continue; // checking - is competitor by id in database after delete
 			
 			competitor.setId(Integer.parseInt((String) Select.getCompetitor(i).get("competitorID")));
 			competitor.setName((String) Select.getCompetitor(i).get("competitorName"));
@@ -59,6 +66,20 @@ public class DeleteCompetitor extends Competitor {
 			System.out.printf("\n\tHeight: %s ",competitor.getHeight());
 			System.out.printf("\n\tCategory: %s ",competitor.getCategory());
 			System.out.printf("\n\tStart Number: %s \n",competitor.getStartNumber());
+		}
+	}
+	
+	public void delete(JList list){
+		
+		selectedCompetitors = list.getSelectedIndices();
+		
+		for(int i=0; i < selectedCompetitors.length; i++){
+//			System.out.println(competitorList.get(selectedCompetitors[i]).getId());
+			Delete.deleteCompetitorByID(competitorList.get(selectedCompetitors[i]).getId());			
+		}
+		
+		for(int i = 0; i < competitorList.size(); i++){
+			competitorList.remove(i);
 		}
 	}
 	

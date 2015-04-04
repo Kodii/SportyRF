@@ -122,9 +122,10 @@ public class Select extends DatabaseConnection {
     		Connection connection = getConnection();
     		PreparedStatement getCompetitorStm = connection.prepareStatement("SELECT id, name, surname, gender, birt, city, district, team, weight, height, category, startnumber FROM Participant WHERE id=?");
     		getCompetitorStm.setInt(1, competitorID);
-    		rs = getCompetitorStm.executeQuery();
-    		rs.next();
     		
+    		rs = getCompetitorStm.executeQuery();
+    		
+    		if(rs.next() == true){	
     		competitor.put("competitorID", Integer.toString(rs.getInt(1)));
     		competitor.put("competitorName", rs.getString(2));
     		competitor.put("competitorSurname", rs.getString(3));
@@ -137,7 +138,9 @@ public class Select extends DatabaseConnection {
     		competitor.put("competitorHeight", rs.getString(10));
     		competitor.put("competitorCategory", Integer.toString(rs.getInt(11)));
     		competitor.put("competitorStartNumber", Integer.toString(rs.getInt(12)));
-
+    		
+    		connection.close();
+    		}
     		
     		connection.close();
     	}catch (SQLException e){

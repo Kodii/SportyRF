@@ -22,11 +22,10 @@ public abstract class NewWindow extends JFrame implements NewWindowInterface {
 	public NewWindow() {
 
 		setTitle("SET TITLE");
-		setSize(640, 480);
+		setSize(640, 200);
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setVisible(true);
 
 		initUI();
 	}
@@ -39,7 +38,6 @@ public abstract class NewWindow extends JFrame implements NewWindowInterface {
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setVisible(true);
 
 		initUI();
 	}
