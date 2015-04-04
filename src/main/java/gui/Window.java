@@ -1,8 +1,9 @@
 package gui;
 
-import gui.competition.Competition;
-import gui.competition.NewCompetitionWindow;
-import gui.competitor.NewCompetitor;
+import gui.competition.add.NewCompetition;
+import gui.competition.add.window.NewCompetitionWindow;
+import gui.competitor.add.window.NewCompetitorWindow;
+import gui.competitor.delete.window.DeleteCompetitorWindow;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -41,13 +42,18 @@ import javax.swing.table.DefaultTableModel;
  */
 
 public class Window extends JFrame {
+	
 
 	private JTabbedPane tabbedPane;
 	private JPanel startListPanel, racePanel, insidePanel;
 	private JScrollPane listScroller, rightPane;
 	private JTable startListTable;
-	private Competition competition;
+	
+	private NewCompetition competition;
+	
 	private NewCompetitionWindow competitionWindow;
+	private NewCompetitorWindow newCompetitorWindow;
+	private DeleteCompetitorWindow deleteCompetitorWindow;
 
 	private Font tableColumnsFont, tableFont;
 
@@ -123,7 +129,7 @@ public class Window extends JFrame {
 		menuCompetitorNew.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				NewCompetitor newCompetitor = new NewCompetitor(window);
+				newCompetitorWindow = new NewCompetitorWindow();
 			}
 		});
 		menuCompetitor.add(menuCompetitorNew);
@@ -133,6 +139,12 @@ public class Window extends JFrame {
 		JMenuItem menuCompetitorDelete = new JMenuItem("USUŃ");
 		menuCompetitorDelete.setMnemonic(KeyEvent.VK_D);
 		menuCompetitorDelete.setToolTipText("Wczytuje z pliku (alt+d)");
+		menuCompetitorDelete.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				deleteCompetitorWindow = new DeleteCompetitorWindow();
+			}
+		});
 		menuCompetitor.add(menuCompetitorDelete);
 		// Menu Competitor - delete
 
