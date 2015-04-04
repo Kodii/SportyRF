@@ -74,7 +74,6 @@ public class DeleteCompetitor extends Competitor {
 		selectedCompetitors = list.getSelectedIndices();
 		
 		for(int i=0; i < selectedCompetitors.length; i++){
-//			System.out.println(competitorList.get(selectedCompetitors[i]).getId());
 			Delete.deleteCompetitorByID(competitorList.get(selectedCompetitors[i]).getId());			
 		}
 		
